@@ -4,14 +4,14 @@ import 'package:demosafespace/states/signin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:demosafespace/utility/constant.dart';
-import 'package:demosafespace/states/authen.dart';
+
 import 'package:demosafespace/states/create_acc.dart';
 import 'package:demosafespace/states/welcome.dart';
 
 final Map<String,WidgetBuilder>map = {
 
   '/welcome':(BuildContext context)=>Welcome(),
-  '/authen':(BuildContext context)=>Authen(),
+ 
   '/create_acc':(BuildContext context)=>CreareAcc(),
   '/signin':(BuildContext context)=>Signin(),
 };

@@ -82,7 +82,7 @@ class _WelcomeState extends State<Welcome> {
     //height: screenHeigth * 0.1,
     child: ElevatedButton(
       style: Constant().ourButton(),
-      onPressed: () =>Navigator.pushNamed(context, Constant.routeAuthen),
+      onPressed: () =>Navigator.pushNamed(context, Constant.routeSignin),
       child: Text(
         'Sign In',
         style: Constant().h2Style(),

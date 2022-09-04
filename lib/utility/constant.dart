@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class Constant {
   // Genernal
   static String appName = 'SafeSpace';
+   static String SignName = 'welcome Back!';
   //Route
   static String routeWelcome = '/welcome';
   static String routeAuthen = '/authen';
@@ -46,14 +47,9 @@ class Constant {
         fontFamily: 'LibreBodoni',
         fontSize: 20,
         color: green,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w600,
       );
 
-  TextStyle h3Style() => TextStyle(
-        fontSize: 18,
-        color: colorF,
-        fontWeight: FontWeight.normal,
-      );
 
   TextStyle h4Style() => TextStyle(
         fontFamily: 'LibreBodoni',
@@ -71,6 +67,12 @@ class Constant {
         fontFamily: 'NotoSansThai',
         fontSize: 20,
         color: colorF,
+        fontWeight: FontWeight.normal,
+      );
+       TextStyle h3Style() => TextStyle(
+        fontFamily: 'NotoSansThai',
+        fontSize: 16,
+        color: ligthBlack,
         fontWeight: FontWeight.normal,
       );
   ButtonStyle ourButton() => ElevatedButton.styleFrom(
