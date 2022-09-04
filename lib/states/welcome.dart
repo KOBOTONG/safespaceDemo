@@ -60,42 +60,46 @@ class _WelcomeState extends State<Welcome> {
               top: 400,
               right: 30,
               left: 40,
-              child: Text(
-                "An application for booking parking near the airport for short trips by SafeSpace CO.,LTD.",
-                style: Constant().h5Style(),
+              child: Text("แอพลิเคชั่นบริการจองที่จอดรถล่วงหน้าใกล้สนามบิน สำหรับการเดินทางระยะสั้นโดยบริษัท SafeSpace CO., LTD.",
+                //"An application for booking parking near the airport for short trips by SafeSpace CO.,LTD.",
+                style: Constant().h6Style(),
               ),
             ),
           ),
           buildRegister(),
-          Container(margin: EdgeInsets.only(
-        top: 500,
-        left: 210,
-      ),
-      width: screenWidth * 0.4,
-      //height: screenHeigth * 0.1,
-      child: ElevatedButton(
-        style: Constant().ourButton(),
-        onPressed: () {},
-        child: Text(
-          'Sign In',
-          style: Constant().h2Style(),
-        ),
-      ),),
+          buildSingIn(context),
         ],
       )),
     );
   }
 
+  Container buildSingIn(BuildContext context) {
+    return Container(margin: EdgeInsets.only(
+      top: 530,
+      left: 210,
+    ),
+    width: screenWidth * 0.4,
+    //height: screenHeigth * 0.1,
+    child: ElevatedButton(
+      style: Constant().ourButton(),
+      onPressed: () =>Navigator.pushNamed(context, Constant.routeAuthen),
+      child: Text(
+        'Sign In',
+        style: Constant().h2Style(),
+      ),
+    ),);
+  }
+
   Container buildRegister() {
     return Container(
       margin: EdgeInsets.only(
-        top: 500,
+        top: 530,
         left: 30,
       ),
       width: screenWidth * 0.4,
       child: ElevatedButton(
         style: Constant().ourButton(),
-        onPressed: () {},
+        onPressed: ()=>Navigator.pushNamed(context, Constant.routeCreateAcc),
         child: Text(
           'Register',
           style: Constant().h2Style(),
@@ -120,7 +124,7 @@ class _WelcomeState extends State<Welcome> {
     );
   }
 
-  Container buildBG() {
+  Container buildBG()  {
     return Container(
       width: screenWidth,
       child: Stack(

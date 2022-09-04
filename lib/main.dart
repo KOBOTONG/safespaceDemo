@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:demosafespace/states/signin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:demosafespace/utility/constant.dart';
@@ -12,6 +13,7 @@ final Map<String,WidgetBuilder>map = {
   '/welcome':(BuildContext context)=>Welcome(),
   '/authen':(BuildContext context)=>Authen(),
   '/create_acc':(BuildContext context)=>CreareAcc(),
+  '/signin':(BuildContext context)=>Signin(),
 };
 
 String? initlalRoute ;
