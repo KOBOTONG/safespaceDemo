@@ -66,7 +66,21 @@ class _WelcomeState extends State<Welcome> {
               ),
             ),
           ),
-          buildRegister()
+          buildRegister(),
+          Container(margin: EdgeInsets.only(
+        top: 500,
+        left: 210,
+      ),
+      width: screenWidth * 0.4,
+      //height: screenHeigth * 0.1,
+      child: ElevatedButton(
+        style: Constant().ourButton(),
+        onPressed: () {},
+        child: Text(
+          'Sign In',
+          style: Constant().h2Style(),
+        ),
+      ),),
         ],
       )),
     );
@@ -76,7 +90,7 @@ class _WelcomeState extends State<Welcome> {
     return Container(
       margin: EdgeInsets.only(
         top: 500,
-        left: 40,
+        left: 30,
       ),
       width: screenWidth * 0.4,
       child: ElevatedButton(
