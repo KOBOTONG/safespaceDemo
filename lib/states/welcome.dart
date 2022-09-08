@@ -81,7 +81,7 @@ class _WelcomeState extends State<Welcome> {
     width: screenWidth * 0.4,
     //height: screenHeigth * 0.1,
     child: ElevatedButton(
-      style: Constant().ourButton(),
+      style: Constant().ligthButton(),
       onPressed: () =>Navigator.pushNamed(context, Constant.routeSignin),
       child: Text(
         'Sign In',
@@ -98,7 +98,7 @@ class _WelcomeState extends State<Welcome> {
       ),
       width: screenWidth * 0.4,
       child: ElevatedButton(
-        style: Constant().ourButton(),
+        style: Constant().ligthButton(),
         onPressed: ()=>Navigator.pushNamed(context, Constant.routeCreateAcc),
         child: Text(
           'Register',

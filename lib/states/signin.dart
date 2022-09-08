@@ -15,6 +15,8 @@ class Signin extends StatefulWidget {
 class _SigninState extends State<Signin> {
   bool statusRedEye = true;
   get childen => null;
+  final formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -22,16 +24,66 @@ class _SigninState extends State<Signin> {
     return Scaffold(
       backgroundColor: Constant.yello,
       body: SafeArea(
-        child: ListView(
-          children: [
-            makeTitle(),
-            makeTitleSign(),
-            imageParking(size),
-            makeEmail(size),
-            makePassword(size),
-          ],
+        child: Form(
+          key: formkey,
+          child: ListView(
+            children: [
+              makeTitle(),
+              makeTitleSign(),
+              imageParking(size),
+              makeEmail(size),
+              makePassword(size),
+              makeForgot(),
+              makeButtonSign(size),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Container makeForgot() {
+    return Container(
+      padding: EdgeInsets.only(left: 120),
+      child: TextButton(
+        onPressed: () {},
+        child: Text('Forget Password?'),
+      ),
+    );
+  }
+
+  Row returnBack(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: ElevatedButton(
+            style: Constant().ourButton(),
+            onPressed: () =>
+                Navigator.pushNamed(context, Constant.routeWelcome),
+            child: Text('< back'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row makeButtonSign(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 16),
+          width: size * 0.6,
+          child: ElevatedButton(
+              style: Constant().ourButton(),
+              onPressed: () {},
+              child: Text(
+                'Sign In',
+                style: Constant().h4Style(),
+              )),
+        ),
+      ],
     );
   }
 
@@ -133,7 +185,7 @@ class _SigninState extends State<Signin> {
 
   Container makeTitle() {
     return Container(
-      padding: EdgeInsets.only(left: 18, top: 50),
+      padding: EdgeInsets.only(bottom: 5, top: 50, left: 30),
       child: Row(
         children: [
           Text(

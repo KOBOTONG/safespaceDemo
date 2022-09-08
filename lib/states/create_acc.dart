@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:demosafespace/utility/constant.dart';
 
 class CreareAcc extends StatefulWidget {
@@ -13,27 +17,108 @@ class CreareAcc extends StatefulWidget {
 class _CreareAccState extends State<CreareAcc> {
   bool statusRedEye = true;
   get childen => null;
+  final formkey = GlobalKey<FormState>();
+  TextEditingController first = TextEditingController();
+  TextEditingController last = TextEditingController();
+  TextEditingController mail = TextEditingController();
+  TextEditingController pass = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  get http => null;
+  Future register() async {
+    var url = "http://10.34.63.193/phpSafespace/register.php";
+
+    var response = await http.post(url, body: {
+      "firstname": first.text,
+      "lastname": last.text,
+      "mail": mail.text,
+      "password": pass.text,
+      "phone": phone.text,
+    });
+
+    var data = json.decode(response.body);
+    if (data == "Error") {
+      Fluttertoast.showToast(
+          msg: "This User Already Exit!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      Fluttertoast.showToast(
+          msg: "Registration Successful",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Constant.yello,
       body: SafeArea(
-        child: ListView(
-          children: [
-            makeTitalStart(),
-            makeTitleC(),
-            firstname(size),
-            lastname(size),
-            email(size),
-            password(size),
-            Row(
+        child: Form(
+          key: formkey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                makeTitalStart(),
+                makeTitleC(),
+                firstname(size),
+                lastname(size),
+                email(size),
+                password(size),
+                makePhonnuber(size),
+                makeButton(size),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row makeButton(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 16),
+          width: size * 0.6,
+          child: ElevatedButton(
+              style: Constant().ourButton(),
+              onPressed: () {
+                register();
+                //if (formkey.currentState!.validate()) {}
+              },
+              child: Text(
+                'Register Now',
+                style: Constant().h4Style(),
+              )),
+        ),
+      ],
+    );
+  }
+
+  Row makePhonnuber(double size) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your phone number';
+              } else {}
+            },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
               labelText: 'Phone Number',
@@ -51,10 +136,6 @@ class _CreareAccState extends State<CreareAcc> {
           ),
         ),
       ],
-    )
-          ],
-        ),
-      ),
     );
   }
 
@@ -66,6 +147,11 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 15, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your password';
+              } else {}
+            },
             obscureText: statusRedEye,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -110,6 +196,11 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your E-mail';
+              } else {}
+            },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
               labelText: 'E-mail',
@@ -138,6 +229,11 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 10, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your lastname';
+              } else {}
+            },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
               labelText: 'Lastname',
@@ -166,6 +262,11 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 30, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your firstname';
+              } else {}
+            },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
               labelText: 'Firstname',
@@ -202,7 +303,7 @@ class _CreareAccState extends State<CreareAcc> {
 
   Container makeTitalStart() {
     return Container(
-      padding: EdgeInsets.only(left: 18, top: 50),
+      padding: EdgeInsets.only(left: 20, top: 10),
       child: Row(
         children: [
           Text(

@@ -49,11 +49,9 @@ class Constant {
         color: green,
         fontWeight: FontWeight.w600,
       );
-
-
   TextStyle h4Style() => TextStyle(
         fontFamily: 'LibreBodoni',
-        fontSize: 24,
+        fontSize: 20,
         color: colorF,
         fontWeight: FontWeight.w600,
       );
@@ -76,6 +74,12 @@ class Constant {
         fontWeight: FontWeight.normal,
       );
   ButtonStyle ourButton() => ElevatedButton.styleFrom(
+        primary: Constant.ligthBlack,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+      );
+      ButtonStyle ligthButton() => ElevatedButton.styleFrom(
         primary: Constant.colorF,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
