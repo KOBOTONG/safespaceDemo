@@ -1,10 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:demosafespace/utility/constant.dart';
 
 class CreareAcc extends StatefulWidget {
@@ -18,44 +14,6 @@ class _CreareAccState extends State<CreareAcc> {
   bool statusRedEye = true;
   get childen => null;
   final formkey = GlobalKey<FormState>();
-  TextEditingController first = TextEditingController();
-  TextEditingController last = TextEditingController();
-  TextEditingController mail = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  get http => null;
-  Future register() async {
-    var url = "http://10.34.63.193/phpSafespace/register.php";
-
-    var response = await http.post(url, body: {
-      "firstname": first.text,
-      "lastname": last.text,
-      "mail": mail.text,
-      "password": pass.text,
-      "phone": phone.text,
-    });
-
-    var data = json.decode(response.body);
-    if (data == "Error") {
-      Fluttertoast.showToast(
-          msg: "This User Already Exit!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    } else {
-      Fluttertoast.showToast(
-          msg: "Registration Successful",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +52,7 @@ class _CreareAccState extends State<CreareAcc> {
           child: ElevatedButton(
               style: Constant().ourButton(),
               onPressed: () {
-                register();
-                //if (formkey.currentState!.validate()) {}
+                if (formkey.currentState!.validate()) {}
               },
               child: Text(
                 'Register Now',
