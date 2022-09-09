@@ -260,7 +260,7 @@ class _CreareAccState extends State<CreareAcc> {
 
   Container makeTitalStart() {
     return Container(
-      padding: EdgeInsets.only(left: 20, top: 10),
+      padding: EdgeInsets.only(left: 20, top: 50),
       child: Row(
         children: [
           Text(
