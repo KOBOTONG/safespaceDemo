@@ -16,16 +16,15 @@ if (!$link->set_charset("utf8")) {
 	}
 
 if (isset($_GET)) {
-	if ($_GET['isAdd'] == 'true') {
-				
-		$firstname = $_GET['firstname'];
-		$lastname = $_GET['lastname'];
-		$mail = $_GET['mail'];
+	if ($_GET['isAdd'] == 'true') {			
+		$fname = $_GET['fname'];
+		$lname = $_GET['lname'];
+		$mailuser = $_GET['mailuser'];
 		$password = $_GET['password'];
 		$phone = $_GET['phone'];
 		
 							
-		$sql = "INSERT INTO `register`(`id`, `firstname`, `lastname`, `mail`, `password`, `phone`) VALUES (Null'$firstname','$lastname','$mail','$password','$phone')";
+		$sql = "INSERT INTO `user`(`id`, `fname`, `lname`, `mailuser`, `password`, `phone`) VALUES (Null,'$fname','$lname','$mailuser','$password','$phone')";
 
 		$result = mysqli_query($link, $sql);
 
@@ -35,7 +34,7 @@ if (isset($_GET)) {
 			echo "false";
 		}
 
-	} else echo "Welcome Master UNG";
+	} else echo "Welcome";
    
 }
 	mysqli_close($link);

@@ -3,4 +3,4 @@
     error_reporting(0);
     error_reporting(E_ERROR | E_PARSE);
     header("content-type:text/javascript;charset=utf-8");
-    $link = mysqli_connect('localhost', 'DataSafeSpace', 'mt123456789', "safespace");
+    $link = mysqli_connect('localhost', 'dbsafespace', 'ss123456789', "dtb");

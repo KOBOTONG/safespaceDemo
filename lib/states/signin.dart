@@ -77,7 +77,7 @@ class _SigninState extends State<Signin> {
           width: size * 0.6,
           child: ElevatedButton(
               style: Constant().ourButton(),
-              onPressed: () {},
+              onPressed: () =>Navigator.pushNamed(context, Constant.routeHome),
               child: Text(
                 'Sign In',
                 style: Constant().h4Style(),

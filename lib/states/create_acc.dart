@@ -14,7 +14,11 @@ class _CreareAccState extends State<CreareAcc> {
   bool statusRedEye = true;
   get childen => null;
   final formkey = GlobalKey<FormState>();
-
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController lnameController = TextEditingController();
+  TextEditingController mailuserController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -63,6 +67,16 @@ class _CreareAccState extends State<CreareAcc> {
     );
   }
 
+  Future<Null> ubload() async {
+    String fname = fnameController.text;
+    String lname = lnameController.text;
+    String mailuser = mailuserController.text;
+    String password = passwordController.text;
+    String phone = phoneController.text;
+    print(
+        '##fname=$fname,lname=$lname,mailuser=$mailuser,password=$password,phone=$phone');
+  }
+
   Row makePhonnuber(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -71,6 +85,7 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: phoneController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your phone number';
@@ -104,6 +119,7 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 15, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your password';
@@ -153,6 +169,7 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: mailuserController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your E-mail';
@@ -186,6 +203,7 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 10, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: lnameController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your lastname';
@@ -219,6 +237,7 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 30, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: fnameController,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your firstname';
