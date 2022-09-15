@@ -6,11 +6,15 @@ import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/states/create_acc.dart';
 import 'package:demosafespace/states/welcome.dart';
 import 'package:demosafespace/states/home.dart';
+import 'package:demosafespace/states/about.dart';
+import 'package:demosafespace/states/profile.dart';
 final Map<String, WidgetBuilder> map = {
   '/welcome': (BuildContext context) => Welcome(),
   '/create_acc': (BuildContext context) => CreareAcc(),
   '/signin': (BuildContext context) => Signin(),
   '/home': (BuildContext context) => Home(),
+  '/about': (BuildContext context) => Aboutus(),
+  '/profile': (BuildContext context) => Profile(),
 };
 
 String? initlalRoute;

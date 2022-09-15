@@ -12,6 +12,8 @@ class Constant {
   static String routeCreateAcc = '/create_acc';
   static String routeSignin = '/signin';
   static String routeHome = '/home';
+  static String routeAboutus = '/about';
+   static String routeProfile = '/profile';
   //Image
   static String asset1 = 'images/FFF1.png';
   static String asset2 = 'images/BGligthFFDB48.png';
@@ -59,6 +61,12 @@ class Constant {
         fontFamily: 'LibreBodoni',
         fontSize: 20,
         color: colorF,
+        fontWeight: FontWeight.w600,
+      );
+       TextStyle hh4Style() => TextStyle(
+        fontFamily: 'LibreBodoni',
+        fontSize: 20,
+        color: dropligthBlack,
         fontWeight: FontWeight.w600,
       );
   TextStyle h5Style() => TextStyle(

@@ -9,7 +9,10 @@ class Welcome extends StatefulWidget {
   @override
   State<Welcome> createState() => _WelcomeState();
 }
-
+/* Container(
+              padding: EdgeInsets.only(top: 100),
+              child: Lottie.network('https://assets1.lottiefiles.com/packages/lf20_xsrtzvyq.json'),
+            ),*/
 class _WelcomeState extends State<Welcome> {
   late double screenWidth, screenHeigth;
   final style = TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
