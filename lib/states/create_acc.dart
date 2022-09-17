@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
 
@@ -56,7 +56,15 @@ class _CreareAccState extends State<CreareAcc> {
           child: ElevatedButton(
               style: Constant().ourButton(),
               onPressed: () {
-                if (formkey.currentState!.validate()) {}
+                if (formkey.currentState!.validate()) {
+                  if (email == null) {
+                    print('Please enter your email.');
+                  } else {
+                    print('Insert to database.');
+                   ubloadData();
+                    
+                  }
+                }
               },
               child: Text(
                 'Register Now',
@@ -67,7 +75,7 @@ class _CreareAccState extends State<CreareAcc> {
     );
   }
 
-  Future<Null> ubload() async {
+  Future<Null> ubloadData() async {
     String fname = fnameController.text;
     String lname = lnameController.text;
     String mailuser = mailuserController.text;
@@ -75,6 +83,8 @@ class _CreareAccState extends State<CreareAcc> {
     String phone = phoneController.text;
     print(
         '##fname=$fname,lname=$lname,mailuser=$mailuser,password=$password,phone=$phone');
+  String path = '$Constant.domain}http://localhost/safespace/getUserWhereUser.php?isAdd=true&mailuser=$mailuser';
+  await Dio().get(path).then((value) => print('## value ==> $value'));
   }
 
   Row makePhonnuber(double size) {
