@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:demosafespace/states/booking.dart';
 import 'package:demosafespace/states/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
@@ -15,6 +16,7 @@ final Map<String, WidgetBuilder> map = {
   '/home': (BuildContext context) => Home(),
   '/about': (BuildContext context) => Aboutus(),
   '/profile': (BuildContext context) => Profile(),
+  '/booking': (BuildContext context) => Booking(),
 };
 
 String? initlalRoute;

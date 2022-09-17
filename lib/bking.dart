@@ -28,7 +28,7 @@ class Bking extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10),
                       child: IconButton(
                         onPressed: () =>
-                            Navigator.pushNamed(context, Constant.routeWelcome),
+                            Navigator.pushNamed(context, Constant.routeBooking),
                         icon: Icon(
                           Icons.toys,
                           size: 70,

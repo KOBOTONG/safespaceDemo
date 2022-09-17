@@ -14,6 +14,7 @@ class Constant {
   static String routeHome = '/home';
   static String routeAboutus = '/about';
    static String routeProfile = '/profile';
+   static String routeBooking = '/booking';
   //Image
   static String asset1 = 'images/FFF1.png';
   static String asset2 = 'images/BGligthFFDB48.png';
@@ -48,6 +49,12 @@ class Constant {
   TextStyle hhStyle() => TextStyle(
         fontFamily: 'LibreBodoni',
         fontSize: 30,
+        color: ligthBlack,
+        fontWeight: FontWeight.w600,
+      );
+      TextStyle hBookingStyle() => TextStyle(
+        fontFamily: 'LibreBodoni',
+        fontSize: 20,
         color: ligthBlack,
         fontWeight: FontWeight.w600,
       );

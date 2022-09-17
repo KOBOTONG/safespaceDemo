@@ -1,4 +1,5 @@
 import 'package:demosafespace/utility/constant.dart';
+import 'package:demosafespace/widget/show_image.dart';
 import 'package:flutter/material.dart';
 
 class Aboutus extends StatefulWidget {
@@ -16,20 +17,79 @@ class _AboutusState extends State<Aboutus> {
       body: SafeArea(
           child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 50),
-                child: Text(
-                  "S  a  f  e  S  p  a  c  e",
-                  style: Constant().hhStyle(),
-                ),
-              ),
-            ],
-          ),
+          makeHeading(),
+          makeLine(),
+          iconHome(context),
+          iconProfile(context),
+          iconAboutus(context),
         ],
       )),
+    );
+  }
+
+  Row makeLine() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 100),
+          child: ShowImage(path: Constant.asset7),
+        ),
+      ],
+    );
+  }
+
+  Padding iconAboutus(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 560, left: 290),
+      child: IconButton(
+        onPressed: () => Navigator.pushNamed(context, Constant.routeAboutus),
+        icon: Icon(
+          Icons.support_agent,
+          size: 60,
+        ),
+      ),
+    );
+  }
+
+  Padding iconProfile(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 560, left: 170),
+      child: IconButton(
+        onPressed: () => Navigator.pushNamed(context, Constant.routeProfile),
+        icon: Icon(
+          Icons.account_circle,
+          size: 60,
+        ),
+      ),
+    );
+  }
+
+  Padding iconHome(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 560, left: 50),
+      child: IconButton(
+        onPressed: () => Navigator.pushNamed(context, Constant.routeHome),
+        icon: Icon(
+          Icons.home_rounded,
+          size: 60,
+        ),
+      ),
+    );
+  }
+
+  Row makeHeading() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 50),
+          child: Text(
+            "S  a  f  e  S  p  a  c  e",
+            style: Constant().hhStyle(),
+          ),
+        ),
+      ],
     );
   }
 }
