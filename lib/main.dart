@@ -2,6 +2,7 @@
 
 import 'package:demosafespace/states/booking.dart';
 import 'package:demosafespace/states/signin.dart';
+
 import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/states/create_acc.dart';
@@ -17,6 +18,7 @@ final Map<String, WidgetBuilder> map = {
   '/about': (BuildContext context) => Aboutus(),
   '/profile': (BuildContext context) => Profile(),
   '/booking': (BuildContext context) => Booking(),
+
 };
 
 String? initlalRoute;

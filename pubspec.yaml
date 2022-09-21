@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dio: ^4.0.6
+http: ^0.13.3
+
 
 dependencies:
   flutter:
@@ -38,6 +40,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   lottie: ^1.2.2
   dio: ^4.0.6
+  http: ^0.13.5
+  
+ 
+  
+  
  
 
 dev_dependencies:
