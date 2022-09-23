@@ -15,7 +15,7 @@ class CreareAcc extends StatefulWidget {
 
 class _CreareAccState extends State<CreareAcc> {
   bool statusRedEye = true;
-  
+
   TextEditingController fname = TextEditingController();
   TextEditingController lname = TextEditingController();
   TextEditingController mailuser = TextEditingController();
@@ -23,11 +23,11 @@ class _CreareAccState extends State<CreareAcc> {
   TextEditingController phone = TextEditingController();
 
   Future<void> insertdata() async {
-    if (fname.text != "" ||
-        lname.text != "" ||
-        mailuser.text != "" ||
-        password.text != "" ||
-        phone.text != "") {
+    if (fname.text != " " ||
+        lname.text != " " ||
+        mailuser.text != " " ||
+        password.text != " " ||
+        phone.text != " ") {
       try {
         String url = "http://10.0.2.2/safespace/insertUser.php";
         var res = await http.post(Uri.parse(url), body: {
@@ -41,7 +41,6 @@ class _CreareAccState extends State<CreareAcc> {
         var response = jsonDecode(res.body);
         if (response["success"] == "true") {
           print("Success insert");
-          
         } else {
           print("some isssue");
         }
@@ -60,12 +59,12 @@ class _CreareAccState extends State<CreareAcc> {
       backgroundColor: Constant.yello,
       body: SafeArea(
         child: Form(
-          
           child: SingleChildScrollView(
             child: Column(
               children: [
                 makeTitalStart(),
                 makeTitleC(),
+                makeIden(size),
                 firstname(size),
                 lastname(size),
                 email(size),
@@ -80,6 +79,41 @@ class _CreareAccState extends State<CreareAcc> {
     );
   }
 
+  Row makeIden(double size) {
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 40),
+                    width: size * 0.6,
+                    child: TextFormField(
+                      maxLength: 13,
+                      validator: (value) {
+                        if (value!.isEmpty /*|| !RegExp(r'^[+]*[(]{0,1}[0-9]{1-4}[)][-\s\./0-9]+$').hasMatch(value!)*/) {
+                          return 'Enter correct Identification Number';
+                        } else {}
+                      },
+                      decoration: InputDecoration(
+                        labelStyle: Constant().h3Style(),
+                        labelText: 'Identification Number',
+                        prefixIcon: Icon(
+                          Icons.badge_outlined,
+                          color: Constant.ligthBlack,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Constant.ligthBlack),
+                            borderRadius: BorderRadius.circular(30)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Constant.ligthBlack),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+  }
+
   Row makeButton(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +124,7 @@ class _CreareAccState extends State<CreareAcc> {
           child: ElevatedButton(
               style: Constant().ourButton(),
               onPressed: () {
-                insertdata();
+                /*insertdata();*/
               },
               child: Text(
                 'Register Now',
