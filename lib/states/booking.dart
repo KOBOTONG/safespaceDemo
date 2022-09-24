@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/widget/show_image.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,26 @@ class _BookingState extends State<Booking> {
               line(),
               titletext(),
               imgcar(),
-             
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 330, left: 40),
+                    child: Text(
+                      "Select :",
+                      style: Constant().hBookingStyle(),
+                    ),
+                  ),
+                   Container(
+                    padding: EdgeInsets.only(top: 330, left: 40),
+                    child: Text(
+                      "TO :",
+                      style: Constant().hBookingStyle(),
+                    ),
+                  ),
+                ],
+                
+              ),
             ],
           ),
         ),
@@ -32,55 +53,55 @@ class _BookingState extends State<Booking> {
 
   Row imgcar() {
     return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 125,left: 100),
-                child: ShowImage(path: Constant.asset10),
-              ),
-            ],
-          );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 160),
+          child: ShowImage(path: Constant.assetCalen),
+        ),
+      ],
+    );
   }
 
   Row titletext() {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 130,left: 60),
-                  child: Text(
-                    "Booking for Parking",
-                    style: Constant().hBookingStyle(),
-                  ),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 130),
+          child: Text(
+            "Book  for Parking",
+            style: Constant().hBookingStyle(),
+          ),
+        ),
+      ],
+    );
   }
 
   Row line() {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 100),
-                  child: ShowImage(path: Constant.asset7),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 100),
+          child: ShowImage(path: Constant.asset7),
+        ),
+      ],
+    );
   }
 
   Row header() {
     return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 50),
-                  child: Text(
-                    "S  a  f  e  S  p  a  c  e",
-                    style: Constant().hhStyle(),
-                  ),
-                ),
-              ],
-            );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 50),
+          child: Text(
+            "S  a  f  e  S  p  a  c  e",
+            style: Constant().hhStyle(),
+          ),
+        ),
+      ],
+    );
   }
 }

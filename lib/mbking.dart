@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, sized_box_for_whitespace, prefer_const_constructors
+
 import 'dart:ui';
 
 import 'package:demosafespace/utility/constant.dart';

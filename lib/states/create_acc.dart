@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, avoid_print
 import 'dart:convert';
 
+import 'package:demosafespace/widget/show_title.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
@@ -64,12 +65,27 @@ class _CreareAccState extends State<CreareAcc> {
               children: [
                 makeTitalStart(),
                 makeTitleC(),
-                makeIden(size),
+                makeUsername(size),
                 firstname(size),
                 lastname(size),
+                makeIden(size),
                 email(size),
                 makePassword(size),
                 makePhonnuber(size),
+                makeBlueprintitlt(),
+                Row(
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.only(),
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_photo_alternate,
+                        size: 36,
+                        color: Constant.dropligthBlack,
+                      ),
+                    ),
+                  ],
+                ),
                 makeButton(size),
               ],
             ),
@@ -79,39 +95,83 @@ class _CreareAccState extends State<CreareAcc> {
     );
   }
 
+  Row makeUsername(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 11, bottom: 10),
+          width: size * 0.6,
+          child: TextFormField(
+            maxLength: 6,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Enter Username ';
+              } else {}
+            },
+            decoration: InputDecoration(
+              labelStyle: Constant().h3Style(),
+              labelText: 'Username ',
+              prefixIcon: Icon(
+                Icons.badge_outlined,
+                color: Constant.ligthBlack,
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Constant.ligthBlack),
+                  borderRadius: BorderRadius.circular(30)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Constant.ligthBlack),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container makeBlueprintitlt() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: Text(
+        'สำเนาบัตรประชาชน : ' +
+            '\n' +
+            '       กรุณาเซ็นสำเนาถูกต้องใช้สำหรับสมัครสมาชิกกับทางแอพพลิเคชั่น Safe Space เท่านั้น',
+        style: Constant().hthaiStyle(),
+      ),
+    );
+  }
+
   Row makeIden(double size) {
     return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 40),
-                    width: size * 0.6,
-                    child: TextFormField(
-                      maxLength: 13,
-                      validator: (value) {
-                        if (value!.isEmpty /*|| !RegExp(r'^[+]*[(]{0,1}[0-9]{1-4}[)][-\s\./0-9]+$').hasMatch(value!)*/) {
-                          return 'Enter correct Identification Number';
-                        } else {}
-                      },
-                      decoration: InputDecoration(
-                        labelStyle: Constant().h3Style(),
-                        labelText: 'Identification Number',
-                        prefixIcon: Icon(
-                          Icons.badge_outlined,
-                          color: Constant.ligthBlack,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Constant.ligthBlack),
-                            borderRadius: BorderRadius.circular(30)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Constant.ligthBlack),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 11, bottom: 10),
+          width: size * 0.6,
+          child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Enter correct Linsen plate ';
+              } else {}
+            },
+            decoration: InputDecoration(
+              labelStyle: Constant().h3Style(),
+              labelText: 'Linsen plate ',
+              prefixIcon: Icon(
+                Icons.badge_outlined,
+                color: Constant.ligthBlack,
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Constant.ligthBlack),
+                  borderRadius: BorderRadius.circular(30)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Constant.ligthBlack),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Row makeButton(double size) {
@@ -122,14 +182,15 @@ class _CreareAccState extends State<CreareAcc> {
           margin: EdgeInsets.symmetric(vertical: 16),
           width: size * 0.6,
           child: ElevatedButton(
-              style: Constant().ourButton(),
-              onPressed: () {
-                /*insertdata();*/
-              },
-              child: Text(
-                'Register Now',
-                style: Constant().h4Style(),
-              )),
+            style: Constant().ourButton(),
+            onPressed: () {
+              /* insertdata();*/
+            },
+            child: Text(
+              'Register Now',
+              style: Constant().h4Style(),
+            ),
+          ),
         ),
       ],
     );
@@ -292,7 +353,7 @@ class _CreareAccState extends State<CreareAcc> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.only(top: 30, bottom: 10),
+          padding: EdgeInsets.only(bottom: 10),
           width: size * 0.6,
           child: TextFormField(
             controller: fname,

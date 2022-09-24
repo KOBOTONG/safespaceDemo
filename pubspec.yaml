@@ -41,7 +41,7 @@ dependencies:
   lottie: ^1.2.2
   dio: ^4.0.6
   http: ^0.13.5
-  
+  image_picker: ^0.8.0+3
  
   
   

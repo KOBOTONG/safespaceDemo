@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, non_constant_identifier_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class Constant {
   static String asset7 = 'images/Line7.png';
   static String asset8 = 'images/chome.png';
   static String asset9 = 'images/texthome.png';
-   static String asset10 = 'images/car1.png';
+   static String assetCalen = 'images/Calendar.png';
   //color
   static Color yello = Color(0xffffdb48);
   static Color green = Color(0xff367d51);
@@ -96,6 +96,12 @@ class Constant {
         fontFamily: 'NotoSansThai',
         fontSize: 16,
         color: ligthBlack,
+        fontWeight: FontWeight.normal,
+      );
+       TextStyle hthaiStyle() => TextStyle(
+        fontFamily: 'NotoSansThai',
+        fontSize: 20,
+        color: dropligthBlack,
         fontWeight: FontWeight.normal,
       );
   ButtonStyle ourButton() => ElevatedButton.styleFrom(
