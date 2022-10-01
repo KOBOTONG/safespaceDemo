@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:demosafespace/states/booking.dart';
+import 'package:demosafespace/states/creatregister.dart';
+import 'package:demosafespace/states/insertphoto.dart';
 import 'package:demosafespace/states/signin.dart';
 
 import 'package:flutter/material.dart';
@@ -18,6 +20,8 @@ final Map<String, WidgetBuilder> map = {
   '/about': (BuildContext context) => Aboutus(),
   '/profile': (BuildContext context) => Profile(),
   '/booking': (BuildContext context) => Booking(),
+  '/creatregister': (BuildContext context) => CreareAcco(),
+  '/insertphoto': (BuildContext context) => Insertauthen(),
 
 };
 

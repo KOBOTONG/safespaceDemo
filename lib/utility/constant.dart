@@ -6,7 +6,6 @@ class Constant {
   // Genernal
   static String appName = 'SafeSpace';
   static String SignName = 'welcome Back!';
-  
 
   //Route
   static String routeWelcome = '/welcome';
@@ -17,7 +16,8 @@ class Constant {
   static String routeAboutus = '/about';
   static String routeProfile = '/profile';
   static String routeBooking = '/booking';
-  
+   static String routeAcc = '/creatregister';
+
   //Image
   static String asset1 = 'images/FFF1.png';
   static String asset2 = 'images/BGligthFFDB48.png';
@@ -28,7 +28,8 @@ class Constant {
   static String asset7 = 'images/Line7.png';
   static String asset8 = 'images/chome.png';
   static String asset9 = 'images/texthome.png';
-   static String assetCalen = 'images/Calendar.png';
+  static String assetCalen = 'images/Calendar.png';
+  static String assetDocument = 'images/contract.png';
   //color
   static Color yello = Color(0xffffdb48);
   static Color green = Color(0xff367d51);
@@ -36,7 +37,7 @@ class Constant {
   static Color colorF = Color(0xffFAF3E3);
   static Color ligthBlack = Color(0xff443C3C);
   static Color dropligthBlack = Color(0xff5E5555);
-
+  static Color red = Color(0xffaf0b0f);
   //Style
   TextStyle hStyle() => TextStyle(
         fontFamily: 'LibreBodoni',
@@ -56,7 +57,7 @@ class Constant {
         color: ligthBlack,
         fontWeight: FontWeight.w600,
       );
-      TextStyle hBookingStyle() => TextStyle(
+  TextStyle hBookingStyle() => TextStyle(
         fontFamily: 'LibreBodoni',
         fontSize: 20,
         color: ligthBlack,
@@ -74,7 +75,7 @@ class Constant {
         color: colorF,
         fontWeight: FontWeight.w600,
       );
-       TextStyle hh4Style() => TextStyle(
+  TextStyle hh4Style() => TextStyle(
         fontFamily: 'LibreBodoni',
         fontSize: 20,
         color: dropligthBlack,
@@ -98,10 +99,22 @@ class Constant {
         color: ligthBlack,
         fontWeight: FontWeight.normal,
       );
-       TextStyle hthaiStyle() => TextStyle(
+  TextStyle hthaiStyle() => TextStyle(
+        fontFamily: 'NotoSansThai',
+        fontSize: 20,
+        color: black,
+        fontWeight: FontWeight.normal,
+      );
+      TextStyle hthaititleStyle() => TextStyle(
         fontFamily: 'NotoSansThai',
         fontSize: 20,
         color: dropligthBlack,
+        fontWeight: FontWeight.normal,
+      );
+  TextStyle hhthaiStyle() => TextStyle(
+        fontFamily: 'NotoSansThai',
+        fontSize: 20,
+        color: red,
         fontWeight: FontWeight.normal,
       );
   ButtonStyle ourButton() => ElevatedButton.styleFrom(

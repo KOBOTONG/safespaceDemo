@@ -1,6 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unused_import, avoid_print
+// ignore_for_file: prefer_const_constructors, unused_import, avoid_print, unrelated_type_equality_checks, unused_local_variable
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:demosafespace/utility/normal_dialog.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:demosafespace/widget/show_image.dart';
 import 'package:demosafespace/widget/show_title.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -14,36 +18,62 @@ class CreareAcc extends StatefulWidget {
   State<CreareAcc> createState() => _CreareAccState();
 }
 
+final formKey = GlobalKey<FormState>();
+
 class _CreareAccState extends State<CreareAcc> {
   bool statusRedEye = true;
-
+  TextEditingController username = TextEditingController();
   TextEditingController fname = TextEditingController();
   TextEditingController lname = TextEditingController();
+  TextEditingController licsenseplate = TextEditingController();
   TextEditingController mailuser = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController phone = TextEditingController();
 
-  Future<void> insertdata() async {
-    if (fname.text != " " ||
+/*Future<void> checkdata() async {
+
+  String url = "http://192.168.1.216/safespace/checkuser.php?username=$username";
+  var res =await http.post(Uri.parse(url));
+     var response = jsonDecode(res.body);
+        if (response == "null") {
+          insertdata();
+          
+        } else {
+          print("some isssue");
+        }
+ 
+}*/
+Future<void> insertdata() async {
+  
+    if (username.text != " " ||
+        fname.text != " " ||
         lname.text != " " ||
+        licsenseplate.text != " " ||
         mailuser.text != " " ||
         password.text != " " ||
         phone.text != " ") {
+          
       try {
-        String url = "http://10.0.2.2/safespace/insertUser.php";
+       
+        String url = "http://192.168.1.216/safespace/insertData.php";
         var res = await http.post(Uri.parse(url), body: {
+          "username" : username.text,
           "fname": fname.text,
           "lname": lname.text,
+          "licsenseplate": licsenseplate.text,
           "mailuser": mailuser.text,
           "password": password.text,
           "phone": phone.text,
+          "nameiden": imagename,
+          "namevehi": imagenamevehi
         });
-
+       
         var response = jsonDecode(res.body);
         if (response["success"] == "true") {
-          print("Success insert");
-        } else {
-          print("some isssue");
+          Navigator.pop(context);
+          
+        } else if( response["success"] == "already"){
+          normalDialog(context,'Username already Regisered' );
         }
       } catch (e) {
         print(e);
@@ -53,14 +83,46 @@ class _CreareAccState extends State<CreareAcc> {
     }
   }
 
+  File? imgepath;
+  String? imagename;
+  String? imgedata;
+  ImagePicker imagePicker = new ImagePicker();
+  Future<void> getImage() async {
+    var getimage = await imagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
+    setState(() {
+      imgepath = File(getimage!.path);
+      imagename = getimage.path.split('/').last;
+
+      print(imgepath);
+      print(imagename);
+    });
+  }
+
+  File? imgeVehicel;
+  String? imagenamevehi;
+  String? imgedatavehi;
+  Future<void> getVehicle() async {
+    var getVehicle = await imagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
+    setState(() {
+      imgeVehicel = File(getVehicle!.path);
+      imagenamevehi = getVehicle.path.split('/').last;
+
+      print(imgeVehicel);
+      print(imagenamevehi);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Constant.yello,
       body: SafeArea(
-        child: Form(
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
             child: Column(
               children: [
                 makeTitalStart(),
@@ -68,30 +130,130 @@ class _CreareAccState extends State<CreareAcc> {
                 makeUsername(size),
                 firstname(size),
                 lastname(size),
-                makeIden(size),
+                makeIsen(size),
                 email(size),
                 makePassword(size),
                 makePhonnuber(size),
                 makeBlueprintitlt(),
-                Row(
-                  children: [
-                    IconButton(
-                      padding: EdgeInsets.only(),
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add_photo_alternate,
-                        size: 36,
-                        color: Constant.dropligthBlack,
-                      ),
-                    ),
-                  ],
-                ),
+                addIden(size),
+                makeBFvehicle(),
+                addvehicle(),
+                makeWarning(),
                 makeButton(size),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Row makeIsen(double size) {
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 11, bottom: 10),
+                    width: size * 0.6,
+                    child: TextFormField(
+                      controller: licsenseplate,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your license plate';
+                        } else {
+                          return null;
+                        }
+                      },
+                      decoration: InputDecoration(
+                        labelStyle: Constant().h3Style(),
+                        labelText: 'License Plate',
+                        prefixIcon: Icon(
+                          Icons.account_circle_outlined,
+                          color: Constant.ligthBlack,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Constant.ligthBlack),
+                            borderRadius: BorderRadius.circular(30)),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Constant.ligthBlack),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+  }
+
+  Row addvehicle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 40),
+        imgeVehicel != null
+            ? Image.file(imgeVehicel!)
+            : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        SizedBox(height: 40),
+        Container(
+          padding: EdgeInsets.only(left: 30),
+          child: ElevatedButton(
+            style: Constant().ourButton(),
+            onPressed: () {
+              getVehicle();
+            },
+            child: Text(
+              'Upload',
+              style: Constant().h4Style(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container makeBFvehicle() {
+    return Container(
+      padding: EdgeInsets.only(right: 140),
+      child: Text(
+        'สำเนาทะเบียนรถ : ',
+        style: Constant().hthaiStyle(),
+      ),
+    );
+  }
+
+  Container makeWarning() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: Text(
+        '    ทุกสำเนาต้องมีการเซ็นสำเนาถูกต้องเพื่อใช้สำหรับสมัครสมาชิกจอดรถรายเดือนกับบริษัท NIPPON PARKING DEVELOPMENT (THAILAND) CO.,LTD เท่านั้น',
+        style: Constant().hhthaiStyle(),
+      ),
+    );
+  }
+
+  Row addIden(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 40),
+        imgepath != null
+            ? Image.file(imgepath!)
+            : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        SizedBox(height: 40),
+        Container(
+          padding: EdgeInsets.only(left: 30),
+          child: ElevatedButton(
+            style: Constant().ourButton(),
+            onPressed: () {
+              getImage();
+            },
+            child: Text(
+              'Upload',
+              style: Constant().h4Style(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -103,11 +265,14 @@ class _CreareAccState extends State<CreareAcc> {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            controller: username,
             maxLength: 6,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Enter Username ';
-              } else {}
+              } else {
+                
+              }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
@@ -131,46 +296,11 @@ class _CreareAccState extends State<CreareAcc> {
 
   Container makeBlueprintitlt() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.only(right: 130),
       child: Text(
-        'สำเนาบัตรประชาชน : ' +
-            '\n' +
-            '       กรุณาเซ็นสำเนาถูกต้องใช้สำหรับสมัครสมาชิกกับทางแอพพลิเคชั่น Safe Space เท่านั้น',
+        'สำเนาบัตรประชาชน : ',
         style: Constant().hthaiStyle(),
       ),
-    );
-  }
-
-  Row makeIden(double size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 11, bottom: 10),
-          width: size * 0.6,
-          child: TextFormField(
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Enter correct Linsen plate ';
-              } else {}
-            },
-            decoration: InputDecoration(
-              labelStyle: Constant().h3Style(),
-              labelText: 'Linsen plate ',
-              prefixIcon: Icon(
-                Icons.badge_outlined,
-                color: Constant.ligthBlack,
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Constant.ligthBlack),
-                  borderRadius: BorderRadius.circular(30)),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Constant.ligthBlack),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -184,7 +314,11 @@ class _CreareAccState extends State<CreareAcc> {
           child: ElevatedButton(
             style: Constant().ourButton(),
             onPressed: () {
-              /* insertdata();*/
+              if (formKey.currentState!.validate()) {
+                setState(() {
+                 insertdata();
+                });
+              }
             },
             child: Text(
               'Register Now',
@@ -208,7 +342,9 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your phone number';
-              } else {}
+              } else {
+                return null;
+              }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
@@ -242,7 +378,9 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your password';
-              } else {}
+              } else {
+                return null;
+              }
             },
             obscureText: statusRedEye,
             decoration: InputDecoration(
@@ -292,7 +430,9 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your E-mail';
-              } else {}
+              } else {
+                return null;
+              }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
@@ -326,7 +466,9 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your lastname';
-              } else {}
+              } else {
+                return null;
+              }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
@@ -360,7 +502,9 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your firstname';
-              } else {}
+              } else {
+                return null;
+              }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
