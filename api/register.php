@@ -24,8 +24,8 @@ if (isset($_POST["mailuser"])) {
     $mailuser = $_POST["mailuser"];
 } else return;
 
-if (isset($_POST["password"])) {
-    $password = $_POST["password"];
+if (isset($_POST["passuser"])) {
+    $passuser = $_POST["passuser"];
 } else return;
 
 if (isset($_POST["phone"])) {
@@ -44,14 +44,14 @@ $iden = "uploadIden/$nameiden";
 $vehicle = "uploadVehical/$namevehi";
 
 $arr = [];
-$q="SELECT `no`, `username`, `fname`, `lname`, `licsenseplate`, `mailuser`, `password`, `phone`, `iden`, `vehicle` FROM `user_acc` WHERE username='$username';
+$q="SELECT `no`, `username`, `fname`, `lname`, `licsenseplate`, `mailuser`, `passuser`, `phone`, `iden`, `vehicle` FROM `acc_user` WHERE username='$username';
 ";
 $e = mysqli_query($con, $q);
 if(mysqli_num_rows($e)>0)
 {  $arr["success"] = "already";}
 else{
-$query = "INSERT INTO `user_acc`(`username`, `fname`, `lname`, `licsenseplate`, `mailuser`, `password`, `phone`, `iden`, `vehicle`) 
-VALUES ('$username','$fname','$lname','$licsenseplate','$mailuser','$password','$phone','$iden','$vehicle')";
+$query = "INSERT INTO `acc_user`(`username`, `fname`, `lname`, `licsenseplate`, `mailuser`, `passuser`, `phone`, `iden`, `vehicle`) 
+VALUES ('$username','$fname','$lname','$licsenseplate','$mailuser','$passuser','$phone','$iden','$vehicle')";
 
 
 

@@ -27,22 +27,10 @@ class _CreareAccState extends State<CreareAcc> {
   TextEditingController lname = TextEditingController();
   TextEditingController licsenseplate = TextEditingController();
   TextEditingController mailuser = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController passuser = TextEditingController();
   TextEditingController phone = TextEditingController();
 
-/*Future<void> checkdata() async {
 
-  String url = "http://192.168.1.216/safespace/checkuser.php?username=$username";
-  var res =await http.post(Uri.parse(url));
-     var response = jsonDecode(res.body);
-        if (response == "null") {
-          insertdata();
-          
-        } else {
-          print("some isssue");
-        }
- 
-}*/
 Future<void> insertdata() async {
   
     if (username.text != " " ||
@@ -50,19 +38,19 @@ Future<void> insertdata() async {
         lname.text != " " ||
         licsenseplate.text != " " ||
         mailuser.text != " " ||
-        password.text != " " ||
+        passuser.text != " " ||
         phone.text != " ") {
           
       try {
        
-        String url = "http://192.168.1.216/safespace/insertData.php";
+        String url = "http://192.168.1.216/safespace/register.php";
         var res = await http.post(Uri.parse(url), body: {
           "username" : username.text,
           "fname": fname.text,
           "lname": lname.text,
           "licsenseplate": licsenseplate.text,
           "mailuser": mailuser.text,
-          "password": password.text,
+          "passuser": passuser.text,
           "phone": phone.text,
           "nameiden": imagename,
           "namevehi": imagenamevehi
@@ -374,7 +362,7 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 15, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: password,
+            controller: passuser,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your password';

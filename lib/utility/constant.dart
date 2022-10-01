@@ -16,7 +16,7 @@ class Constant {
   static String routeAboutus = '/about';
   static String routeProfile = '/profile';
   static String routeBooking = '/booking';
-   static String routeAcc = '/creatregister';
+   
 
   //Image
   static String asset1 = 'images/FFF1.png';
