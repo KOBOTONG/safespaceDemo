@@ -2,15 +2,15 @@ import 'dart:convert';
 
 class UserModel {
   final String no;
-  final String username;
-  final String fname;
-  final String lname;
-  final String licsenseplate;
-  final String mailuser;
-  final String passuer;
-  final String phone;
-  final String iden;
-  final String vehicle;
+   final String username;
+    final String fname;
+    final String lname;
+    final String licsenseplate;
+    final String mailuser;
+   final String passuser;
+    final String phone;
+    final String iden;
+   final  String vehicle;
   UserModel({
     required this.no,
     required this.username,
@@ -18,12 +18,12 @@ class UserModel {
     required this.lname,
     required this.licsenseplate,
     required this.mailuser,
-    required this.passuer,
+    required this.passuser,
     required this.phone,
     required this.iden,
     required this.vehicle,
   });
-  
+ 
 
   UserModel copyWith({
     String? no,
@@ -32,7 +32,7 @@ class UserModel {
     String? lname,
     String? licsenseplate,
     String? mailuser,
-    String? passuer,
+    String? passuser,
     String? phone,
     String? iden,
     String? vehicle,
@@ -44,7 +44,7 @@ class UserModel {
       lname: lname ?? this.lname,
       licsenseplate: licsenseplate ?? this.licsenseplate,
       mailuser: mailuser ?? this.mailuser,
-      passuer: passuer ?? this.passuer,
+      passuser: passuser ?? this.passuser,
       phone: phone ?? this.phone,
       iden: iden ?? this.iden,
       vehicle: vehicle ?? this.vehicle,
@@ -59,7 +59,7 @@ class UserModel {
       'lname': lname,
       'licsenseplate': licsenseplate,
       'mailuser': mailuser,
-      'passuer': passuer,
+      'passuser': passuser,
       'phone': phone,
       'iden': iden,
       'vehicle': vehicle,
@@ -74,7 +74,7 @@ class UserModel {
       lname: map['lname'] ?? '',
       licsenseplate: map['licsenseplate'] ?? '',
       mailuser: map['mailuser'] ?? '',
-      passuer: map['passuer'] ?? '',
+      passuser: map['passuser'] ?? '',
       phone: map['phone'] ?? '',
       iden: map['iden'] ?? '',
       vehicle: map['vehicle'] ?? '',
@@ -87,7 +87,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(no: $no, username: $username, fname: $fname, lname: $lname, licsenseplate: $licsenseplate, mailuser: $mailuser, passuer: $passuer, phone: $phone, iden: $iden, vehicle: $vehicle)';
+    return 'UserModel(no: $no, username: $username, fname: $fname, lname: $lname, licsenseplate: $licsenseplate, mailuser: $mailuser, passuser: $passuser, phone: $phone, iden: $iden, vehicle: $vehicle)';
   }
 
   @override
@@ -101,7 +101,7 @@ class UserModel {
       other.lname == lname &&
       other.licsenseplate == licsenseplate &&
       other.mailuser == mailuser &&
-      other.passuer == passuer &&
+      other.passuser == passuser &&
       other.phone == phone &&
       other.iden == iden &&
       other.vehicle == vehicle;
@@ -115,7 +115,7 @@ class UserModel {
       lname.hashCode ^
       licsenseplate.hashCode ^
       mailuser.hashCode ^
-      passuer.hashCode ^
+      passuser.hashCode ^
       phone.hashCode ^
       iden.hashCode ^
       vehicle.hashCode;

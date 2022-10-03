@@ -6,6 +6,7 @@ import 'package:demosafespace/states/home.dart';
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/widget/show_image.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../mbking.dart';
 
@@ -17,6 +18,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  
+ /* @override
+  void initState() {
+    super.initState();
+    findUser();
+  }
+  Future<Null>findUser()async{
+    try { 
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+   // String username = preferences.getString('username');
+      
+    } catch (e) {
+    }
+   
+  }*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +40,10 @@ class _HomeState extends State<Home> {
       body: SafeArea(
         child: Stack(
           children: [
+            
             makeHeader(),
             makeLine(),
+           
             makeCrop(),
             makeTextdata(),
             makebuttonBooking(),

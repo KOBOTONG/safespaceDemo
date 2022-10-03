@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 
-import 'package:demosafespace/model/userModel.dart';
+
+import 'package:demosafespace/model/user_model.dart';
 
 import 'package:demosafespace/states/create_acc.dart';
+import 'package:demosafespace/states/home.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:demosafespace/widget/show_title.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +29,8 @@ class _SigninState extends State<Signin> {
   final formkey = GlobalKey<FormState>();
   TextEditingController usernamecontroler = TextEditingController();
   TextEditingController passwordcontroler = TextEditingController();
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +85,7 @@ class _SigninState extends State<Signin> {
   }
   
 Future<Null> checkAuthen({String? username,String? passuser}) async {
-  String apiCheck="https://2848-2403-6200-8967-df8c-3135-a5ba-2d15-7fea.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username"; 
+  String apiCheck="https://3573-2403-6200-8967-df8c-3135-a5ba-2d15-7fea.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username"; 
   await Dio().get(apiCheck).then((value){
     print('$value');
     if (value.toString()=='null') {
@@ -89,40 +93,28 @@ Future<Null> checkAuthen({String? username,String? passuser}) async {
       
     } else {
       for (var item in json.decode(value.data)) {
-       UserModel model = UserModel.fromMap(item);
-       if (passuser == model.passuser) {
-         Navigator.pushNamed(context, Constant.routeHome);
-         
-       } else {
-        normalDialog(context, 'Invalid Password!. Please try again.');
-       }
+         UserModel model = UserModel.fromMap(item);
+         if (passuser == model.passuser){
+          //Success Authen
+          String fname = model.fname;
+          print('Firstname : $fname');
+         }
+         else{
+          normalDialog(context, 'Invalid Password');
+         }
       }
     }
 
   });
+}
 
+Future <Null>routeService(Widget myWidget)async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  MaterialPageRoute route = MaterialPageRoute(builder: (context)=> myWidget,);
+  Navigator.pushAndRemoveUntil(context, route, (route) => false);
 
 }
-  /*Future<Null> checkUser() async {
-    try {
-      String url = "http://192.168.1.216/safespace/checklogin.php";
-      var res = await http.post(Uri.parse(url), body: {
-        
-        "username": username.text,
-        "passuser": password.text,
-      });
-      var response = jsonDecode(res.body);
-
-      if (response["success"] == "already") {
-       
-        Navigator.pop(context);
-      } else {
-        normalDialog(context, 'Username or Password incorrect');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }*/
+  
 
   Row makePAssword(double size) {
     return Row(

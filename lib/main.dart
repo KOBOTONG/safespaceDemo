@@ -12,6 +12,7 @@ import 'package:demosafespace/states/welcome.dart';
 import 'package:demosafespace/states/home.dart';
 import 'package:demosafespace/states/about.dart';
 import 'package:demosafespace/states/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final Map<String, WidgetBuilder> map = {
   '/welcome': (BuildContext context) => Welcome(),
@@ -29,6 +30,13 @@ void main() {
   initlalRoute = Constant.routeWelcome;
   runApp(MyApp());
 }
+/*Future<Null>main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String? passuer = preferences.getString('passuser');
+  print('username and $passuer ');
+  if()
+}*/
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
