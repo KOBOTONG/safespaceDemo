@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_import, avoid_print, unrelated_type_equality_checks, unused_local_variable
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:demosafespace/widget/show_image.dart';

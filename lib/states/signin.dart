@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:demosafespace/model/userModel.dart';
+
 import 'package:demosafespace/states/create_acc.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:demosafespace/widget/show_title.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/widget/show_image.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -22,8 +25,8 @@ class _SigninState extends State<Signin> {
   bool statusRedEye = true;
   get childen => null;
   final formkey = GlobalKey<FormState>();
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController usernamecontroler = TextEditingController();
+  TextEditingController passwordcontroler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +64,11 @@ class _SigninState extends State<Signin> {
               style: Constant().ourButton(),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  setState(() {
-                    checkUser();
-                  });
+                  String username = usernamecontroler.text;
+                  String passuser = passwordcontroler.text;
+                  print('$username & $passuser');
+                    checkAuthen(username: username,passuser:passuser);
+                  
                 }
               },
               child: Text(
@@ -74,28 +79,50 @@ class _SigninState extends State<Signin> {
       ],
     );
   }
+  
+Future<Null> checkAuthen({String? username,String? passuser}) async {
+  String apiCheck="https://2848-2403-6200-8967-df8c-3135-a5ba-2d15-7fea.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username"; 
+  await Dio().get(apiCheck).then((value){
+    print('$value');
+    if (value.toString()=='null') {
+      normalDialog(context, ' No $username Account. Do you have acccount ?');
+      
+    } else {
+      for (var item in json.decode(value.data)) {
+       UserModel model = UserModel.fromMap(item);
+       if (passuser == model.passuser) {
+         Navigator.pushNamed(context, Constant.routeHome);
+         
+       } else {
+        normalDialog(context, 'Invalid Password!. Please try again.');
+       }
+      }
+    }
 
-  Future<Null> checkUser() async {
+  });
+
+
+}
+  /*Future<Null> checkUser() async {
     try {
       String url = "http://192.168.1.216/safespace/checklogin.php";
       var res = await http.post(Uri.parse(url), body: {
+        
         "username": username.text,
         "passuser": password.text,
       });
-
       var response = jsonDecode(res.body);
-      
-      
-        if (response["success"] == "already") {
-          Navigator.pop(context);
-          
-        } else {
-          normalDialog(context,'Username already Regisered' );
-        }
+
+      if (response["success"] == "already") {
+       
+        Navigator.pop(context);
+      } else {
+        normalDialog(context, 'Username or Password incorrect');
+      }
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 
   Row makePAssword(double size) {
     return Row(
@@ -105,7 +132,7 @@ class _SigninState extends State<Signin> {
             padding: EdgeInsets.only(top: 15, bottom: 10),
             width: size * 0.6,
             child: TextFormField(
-              controller: password,
+              controller: passwordcontroler,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter your password';
@@ -156,7 +183,7 @@ class _SigninState extends State<Signin> {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: username,
+            controller: usernamecontroler,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your username';
