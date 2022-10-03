@@ -24,26 +24,7 @@ class _BookingState extends State<Booking> {
               line(),
               titletext(),
               imgcar(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 330, left: 40),
-                    child: Text(
-                      "Select :",
-                      style: Constant().hBookingStyle(),
-                    ),
-                  ),
-                   Container(
-                    padding: EdgeInsets.only(top: 330, left: 40),
-                    child: Text(
-                      "TO :",
-                      style: Constant().hBookingStyle(),
-                    ),
-                  ),
-                ],
-                
-              ),
+          
             ],
           ),
         ),

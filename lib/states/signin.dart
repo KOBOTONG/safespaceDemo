@@ -86,7 +86,7 @@ class _SigninState extends State<Signin> {
   
 Future<Null> checkAuthen({String? username,String? passuser}) async {
   String apiCheck="https://3573-2403-6200-8967-df8c-3135-a5ba-2d15-7fea.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username"; 
-  await Dio().get(apiCheck).then((value){
+  await Dio().get(apiCheck).then((value) async {
     print('$value');
     if (value.toString()=='null') {
       normalDialog(context, ' No $username Account. Do you have acccount ?');
@@ -98,6 +98,11 @@ Future<Null> checkAuthen({String? username,String? passuser}) async {
           //Success Authen
           String fname = model.fname;
           print('Firstname : $fname');
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          preferences.setString('username', model.username);
+          print('$username');
+          Navigator.pushNamedAndRemoveUntil(context, Constant.routeHome, (route) => false);
+          //Navigator.pushNamed(context, Constant.routeHome);
          }
          else{
           normalDialog(context, 'Invalid Password');
@@ -108,12 +113,7 @@ Future<Null> checkAuthen({String? username,String? passuser}) async {
   });
 }
 
-Future <Null>routeService(Widget myWidget)async{
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  MaterialPageRoute route = MaterialPageRoute(builder: (context)=> myWidget,);
-  Navigator.pushAndRemoveUntil(context, route, (route) => false);
 
-}
   
 
   Row makePAssword(double size) {
