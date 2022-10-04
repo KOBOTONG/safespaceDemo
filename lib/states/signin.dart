@@ -82,7 +82,7 @@ class _SigninState extends State<Signin> {
 
   Future<Null> checkAuthen({String? username, String? passuser}) async {
     String apiCheck =
-        "https://53be-2403-6200-8967-df8c-5d78-9029-4200-ebaa.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username";
+        "https://82ff-2403-6200-8967-df8c-5d78-9029-4200-ebaa.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username";
     await Dio().get(apiCheck).then((value) async {
       print('$value');
       if (value.toString() == 'null') {
