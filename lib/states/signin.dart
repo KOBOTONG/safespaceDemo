@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, unused_import, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace, avoid_print, prefer_void_to_null
 
 import 'dart:convert';
-
 
 import 'package:demosafespace/model/user_model.dart';
 
@@ -29,8 +28,6 @@ class _SigninState extends State<Signin> {
   final formkey = GlobalKey<FormState>();
   TextEditingController usernamecontroler = TextEditingController();
   TextEditingController passwordcontroler = TextEditingController();
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +68,7 @@ class _SigninState extends State<Signin> {
                   String username = usernamecontroler.text;
                   String passuser = passwordcontroler.text;
                   print('$username & $passuser');
-                    checkAuthen(username: username,passuser:passuser);
-                  
+                  checkAuthen(username: username, passuser: passuser);
                 }
               },
               child: Text(
@@ -83,38 +79,38 @@ class _SigninState extends State<Signin> {
       ],
     );
   }
-  
-Future<Null> checkAuthen({String? username,String? passuser}) async {
-  String apiCheck="https://3573-2403-6200-8967-df8c-3135-a5ba-2d15-7fea.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username"; 
-  await Dio().get(apiCheck).then((value) async {
-    print('$value');
-    if (value.toString()=='null') {
-      normalDialog(context, ' No $username Account. Do you have acccount ?');
-      
-    } else {
-      for (var item in json.decode(value.data)) {
-         UserModel model = UserModel.fromMap(item);
-         if (passuser == model.passuser){
-          //Success Authen
-          String fname = model.fname;
-          print('Firstname : $fname');
-          SharedPreferences preferences = await SharedPreferences.getInstance();
-          preferences.setString('username', model.username);
-          print('$username');
-          Navigator.pushNamedAndRemoveUntil(context, Constant.routeHome, (route) => false);
-          //Navigator.pushNamed(context, Constant.routeHome);
-         }
-         else{
-          normalDialog(context, 'Invalid Password');
-         }
+
+  Future<Null> checkAuthen({String? username, String? passuser}) async {
+    String apiCheck =
+        "https://53be-2403-6200-8967-df8c-5d78-9029-4200-ebaa.ap.ngrok.io/safespace//ung.php?isAdd=true&username=$username";
+    await Dio().get(apiCheck).then((value) async {
+      print('$value');
+      if (value.toString() == 'null') {
+        normalDialog(context, ' No $username Account. Do you have acccount ?');
+      } else {
+        for (var item in json.decode(value.data)) {
+          UserModel model = UserModel.fromMap(item);
+          if (passuser == model.passuser) {
+            //Success Authen
+
+            if (username == model.username) {
+              print('$username');
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.setString('username', model.username);
+
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Constant.routeHome, (route) => false);
+            }
+
+            //Navigator.pushNamed(context, Constant.routeHome);*/
+          } else {
+            normalDialog(context, 'Invalid Password');
+          }
+        }
       }
-    }
-
-  });
-}
-
-
-  
+    });
+  }
 
   Row makePAssword(double size) {
     return Row(

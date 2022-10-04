@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_void_to_null
 
 import 'package:demosafespace/states/booking.dart';
 
@@ -26,17 +26,23 @@ final Map<String, WidgetBuilder> map = {
 
 String? initlalRoute;
 
-void main() {
+/*void main() {
   initlalRoute = Constant.routeWelcome;
   runApp(MyApp());
-}
-/*Future<Null>main() async{
+}*/
+Future<Null>main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  String? passuer = preferences.getString('passuser');
-  print('username and $passuer ');
-  if()
-}*/
+  String? username = preferences.getString('username');
+  print('user-->$username ');
+  if(username?.isEmpty ?? true){
+    initlalRoute = Constant.routeWelcome;
+    runApp(MyApp());
+  }else{
+initlalRoute = Constant.routeHome;
+    runApp(MyApp());
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

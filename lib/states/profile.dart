@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:demosafespace/utility/constant.dart';
+import 'package:demosafespace/widget/showSignout.dart';
 import 'package:demosafespace/widget/show_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Constant.yello,
       body: SafeArea(
@@ -24,11 +27,13 @@ class _ProfileState extends State<Profile> {
           iconcontact(context),
           iconsPro(context),
           iconeHome(context),
+          SignOut(),
         ],
       )),
     );
   }
 
+  
   Padding iconeHome(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 560, left: 50),

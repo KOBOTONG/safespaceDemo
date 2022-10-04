@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import, avoid_print, unrelated_type_equality_checks, unused_local_variable
+// ignore_for_file: prefer_const_constructors, unused_import, avoid_print, unrelated_type_equality_checks, unused_local_variable, unnecessary_new
 import 'dart:convert';
 import 'dart:io';
 import 'package:demosafespace/utility/normal_dialog.dart';
@@ -253,7 +253,7 @@ Future<void> insertdata() async {
           width: size * 0.6,
           child: TextFormField(
             controller: username,
-            maxLength: 6,
+            maxLength: 10,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Enter Username ';
@@ -325,7 +325,9 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
+            keyboardType: TextInputType.number,
             controller: phone,
+            maxLength: 10,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your phone number';
