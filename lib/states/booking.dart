@@ -1,10 +1,16 @@
 // ignore_for_file: unused_import
 
-import 'package:datepicker_dropdown/datepicker_dropdown.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:datepicker_dropdown/datepicker_dropdown.dart';
+import 'package:demosafespace/utility/normal_dialog.dart';
+import 'package:demosafespace/widget/show_title.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/widget/show_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Booking extends StatefulWidget {
   const Booking({Key? key}) : super(key: key);
@@ -14,6 +20,8 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  String? typeMonth;
+  String? select;
   _StateBook() {
     _selectVal = _monthSelect[0];
   }
@@ -110,6 +118,13 @@ class _BookingState extends State<Booking> {
               titleEnd(),
               selectEndM(),
               selectEndYear(),
+              titleSelectMonth(),
+              makeTypeM(),
+              buttomConfirm(size),
+              // ignore: prefer_const_constructors
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),
@@ -117,6 +132,155 @@ class _BookingState extends State<Booking> {
     );
   }
 
+ /* Future<void> insertbooking() async {
+    
+    try {
+      String url = "https://1ccf-158-108-228-50.ap.ngrok.io/safespace/booking.php";
+      var res = await http.post(Uri.parse(url), body: {
+         "usernamebook" : usernamebook.text,
+          "fnamebook": fnamebook.text,
+          "lnamebook": lnamebook.text,
+          "licsenbook": licsenbook.text,
+          "stmonth": _selectVal,
+          "styear": _toVal,
+          "tomonth": _selectToVal,
+          "toyear": _toEndVal,
+          "resultmy": select
+          
+      }); var response = jsonDecode(res.body);
+        if (response["success"] == "true") {
+          Navigator.pop(context);
+          
+        } else if( response["success"] == "already"){
+          normalDialog(context,'Username already Regisered' );
+        }
+    } catch (e) {
+      print(e);
+    }
+    
+  }*/
+
+  Row buttomConfirm(double size) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 780),
+          width: size * 0.6,
+          child: ElevatedButton(
+            style: Constant().ourButton(),
+            onPressed: () async {
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              String usernamebook = preferences.getString('username')!;
+              String fnamebook = preferences.getString('fname')!;
+              String lnamebook = preferences.getString('lname')!;
+              String licsenbook = preferences.getString('licsenseplate')!;
+              
+              print('username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook, licsenseplate -> $licsenbook');
+              print('Start Month : $_selectVal ,Start Year : $_toVal');
+              print('End Month : $_selectToVal ,End Year : $_toEndVal');
+              print('$select');
+              String path = "https://1ccf-158-108-228-50.ap.ngrok.io/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+              await Dio().get(path).then((value)=>Navigator.pop(context));
+             /* print('lastname for booking ->$lnamebook');
+              print('licsenseplate for booking ->$licsenbook');*/
+            },
+            child: Text(
+              'Confirm',
+              style: Constant().h4Style(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row makeTypeM() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            padding: EdgeInsets.only(top: 680),
+            child: typeM("1 Month 2800 baht")),
+        Container(
+            padding: EdgeInsets.only(top: 680),
+            child: typeM("2 Month 5600 baht")),
+        Container(
+            padding: EdgeInsets.only(top: 680),
+            child: typeM("3 Month 8400 baht")),
+      ],
+    );
+  }
+
+  Row titleSelectMonth() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 630, left: 30),
+          child: Text(
+            "Select Month",
+            style: Constant().hBookingStyle(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget typeM(String title) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          select = title;
+          print(select);
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 2, 20, 0),
+        child: Container(
+          height: 60,
+          width: 100,
+          decoration: BoxDecoration(
+            border: title == select
+                ? Border.all(color: Constant.dropligthBlack, width: 2)
+                : null,
+            color: Color.fromARGB(255, 238, 242, 238),
+            borderRadius: BorderRadius.circular(9),
+          ),
+          // ignore: prefer_const_constructors
+          child: Center(
+            // ignore: prefer_const_constructors
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+/* Container(
+                padding: EdgeInsets.only(top: 650),
+                width: size * 0.6,
+                child: RadioListTile(
+                  value: 'onemonth',
+                  groupValue: typeMonth,
+                  onChanged: (value) {
+                    setState(() {
+                      typeMonth = value as String?;
+                    });
+                  },
+                  title: ShowTitle(
+                    title: '1 Month (2800)',
+                    textStyle: Constant().hBookingStyle(),
+                  ),
+                ),
+              ),*/
   Container selectEndYear() {
     return Container(
       padding: EdgeInsets.only(top: 540, left: 160, right: 80),
@@ -268,114 +432,6 @@ class _BookingState extends State<Booking> {
       ),
     );
   }
-
-  /*Row addTo(double size) {
-    return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top:460),
-                      width: size * 0.9,
-                      child: DropdownDatePicker(
-                        inputDecoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 1.0),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10))), // optional
-                        isDropdownHideUnderline: true, // optional
-                        isFormValidator: true, // optional
-                        startYear: 2022, // optional
-                        endYear: 2030, // optional
-                        width: 10, // optional
-                        selectedDay: 1, // optional
-                        selectedMonth: 1, // optional
-                        selectedYear: 2022, // optional
-                        onChangedDay: (value) => print('onChangedDay: $value'),
-                        onChangedMonth: (value) =>
-                            print('onChangedMonth: $value'),
-                        onChangedYear: (value) => print('onChangedYear: $value'),
-                      ),
-                    ),
-                    
-                  ],
-                ),
-              ],
-            );
-  }
-
-  Row titleTo() {
-    return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 430, left: 20),
-                  child: Text(
-                    "to Month: ",
-                    style: Constant().hBookingStyle(),
-                  ),
-                ),
-              ],
-            );
-  }
-
-  Row addSelect(double size) {
-    return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 350),
-                      width: size * 0.9,
-                      child: DropdownDatePicker(
-                        inputDecoration: InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 1.0),
-                            ),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10))), // optional
-                        isDropdownHideUnderline: true, // optional
-                        isFormValidator: true, // optional
-                         startYear: 2022, // optional
-                        endYear: 2030, // optional
-                        width: 10, // optional
-                        selectedDay: 1, // optional
-                        selectedMonth: 1, // optional
-                        selectedYear: 2022, /// optional
-                        onChangedDay: (value) => print('onChangedDay: $value'),
-                        onChangedMonth: (value) =>
-                            print('onChangedMonth: $value'),
-                        onChangedYear: (value) => print('onChangedYear: $value'),
-                      ),
-                    ),
-                    
-                  ],
-                ),
-              ],
-            );
-  }
-
-  Row titleSelect() {
-    return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 310, left: 20),
-                  child: Text(
-                    "Select Month: ",
-                    style: Constant().hBookingStyle(),
-                  ),
-                ),
-              ],
-            );
-  }*/
 
   Row imgcar() {
     return Row(
