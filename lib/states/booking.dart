@@ -158,7 +158,13 @@ class _BookingState extends State<Booking> {
               print('End Month : $_selectToVal ,End Year : $_toEndVal');
               print('$select');
               String path = "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
-              await Dio().get(path).then((value)=>Navigator.pop(context));
+              await Dio().get(path).then((value){
+                if (value.toString() == 'true') {
+                  Navigator.pushNamed(context, Constant.routePaymentbook);
+                } else {
+                  normalDialog(context, 'Try again');
+                }
+              });
              /* print('lastname for booking ->$lnamebook');
               print('licsenseplate for booking ->$licsenbook');*/
             },

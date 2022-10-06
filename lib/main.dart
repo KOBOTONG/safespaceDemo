@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, prefer_void_to_null
-
+import 'package:demosafespace/states/paymentbook.dart';
 import 'package:demosafespace/states/booking.dart';
-
 
 import 'package:demosafespace/states/signin.dart';
 
@@ -22,6 +21,7 @@ final Map<String, WidgetBuilder> map = {
   '/about': (BuildContext context) => Aboutus(),
   '/profile': (BuildContext context) => Profile(),
   '/booking': (BuildContext context) => Booking(),
+  '/paymentbook':(BuildContext context) => Pay(),
 };
 
 String? initlalRoute;
@@ -30,16 +30,16 @@ String? initlalRoute;
   initlalRoute = Constant.routeWelcome;
   runApp(MyApp());
 }*/
-Future<Null>main() async{
+Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? username = preferences.getString('username');
   print('user-->$username ');
-  if(username?.isEmpty ?? true){
+  if (username?.isEmpty ?? true) {
     initlalRoute = Constant.routeWelcome;
     runApp(MyApp());
-  }else{
-initlalRoute = Constant.routeHome;
+  } else {
+    initlalRoute = Constant.routeHome;
     runApp(MyApp());
   }
 }
