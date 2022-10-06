@@ -6,7 +6,7 @@ class Constant {
   // Genernal
   static String appName = 'SafeSpace';
   static String SignName = 'welcome Back!';
-   static String api = 'https://5155-158-108-228-128.ap.ngrok.io';
+   static String api = 'https://3ccb-158-108-229-196.ap.ngrok.io';
 
   //Route
   static String routeWelcome = '/welcome';
@@ -31,7 +31,10 @@ class Constant {
   static String asset8 = 'images/chome.png';
   static String asset9 = 'images/texthome.png';
   static String assetCalen = 'images/Calendar.png';
+  static String assetp = 'images/payment.png';
+  static String assetQr = 'images/qrcode.png';
   static String assetDocument = 'images/contract.png';
+  
   //color
   static Color yello = Color(0xffffdb48);
   static Color green = Color(0xff367d51);
@@ -63,6 +66,12 @@ class Constant {
         fontFamily: 'LibreBodoni',
         fontSize: 20,
         color: ligthBlack,
+        fontWeight: FontWeight.w600,
+      );
+        TextStyle hWaeningStyle() => TextStyle(
+        fontFamily: 'LibreBodoni',
+        fontSize: 18,
+        color: Color.fromARGB(255, 194, 48, 48),
         fontWeight: FontWeight.w600,
       );
   TextStyle h2Style() => TextStyle(
