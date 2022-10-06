@@ -18,7 +18,7 @@ class Booking extends StatefulWidget {
   @override
   State<Booking> createState() => _BookingState();
 }
-
+final formKey = GlobalKey<FormState>();
 class _BookingState extends State<Booking> {
   String? typeMonth;
   String? select;
@@ -106,59 +106,35 @@ class _BookingState extends State<Booking> {
       backgroundColor: Constant.yello,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              header(),
-              line(),
-              titletext(),
-              imgcar(),
-              selectTitle(),
-              selectMonth(),
-              toYear(),
-              titleEnd(),
-              selectEndM(),
-              selectEndYear(),
-              titleSelectMonth(),
-              makeTypeM(),
-              buttomConfirm(size),
-              // ignore: prefer_const_constructors
-              SizedBox(
-                height: 50,
-              )
-            ],
+          child: Form(
+            key: formKey,
+            child: Stack(
+              children: [
+                header(),
+                line(),
+                titletext(),
+                imgcar(),
+                selectTitle(),
+                selectMonth(),
+                toYear(),
+                titleEnd(),
+                selectEndM(),
+                selectEndYear(),
+                titleSelectMonth(),
+                makeTypeM(),
+                buttomConfirm(size),
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
- /* Future<void> insertbooking() async {
-    
-    try {
-      String url = "https://1ccf-158-108-228-50.ap.ngrok.io/safespace/booking.php";
-      var res = await http.post(Uri.parse(url), body: {
-         "usernamebook" : usernamebook.text,
-          "fnamebook": fnamebook.text,
-          "lnamebook": lnamebook.text,
-          "licsenbook": licsenbook.text,
-          "stmonth": _selectVal,
-          "styear": _toVal,
-          "tomonth": _selectToVal,
-          "toyear": _toEndVal,
-          "resultmy": select
-          
-      }); var response = jsonDecode(res.body);
-        if (response["success"] == "true") {
-          Navigator.pop(context);
-          
-        } else if( response["success"] == "already"){
-          normalDialog(context,'Username already Regisered' );
-        }
-    } catch (e) {
-      print(e);
-    }
-    
-  }*/
 
   Row buttomConfirm(double size) {
     return Row(
@@ -181,7 +157,7 @@ class _BookingState extends State<Booking> {
               print('Start Month : $_selectVal ,Start Year : $_toVal');
               print('End Month : $_selectToVal ,End Year : $_toEndVal');
               print('$select');
-              String path = "https://1ccf-158-108-228-50.ap.ngrok.io/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+              String path = "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
               await Dio().get(path).then((value)=>Navigator.pop(context));
              /* print('lastname for booking ->$lnamebook');
               print('licsenseplate for booking ->$licsenbook');*/
@@ -264,26 +240,9 @@ class _BookingState extends State<Booking> {
     );
   }
 
-/* Container(
-                padding: EdgeInsets.only(top: 650),
-                width: size * 0.6,
-                child: RadioListTile(
-                  value: 'onemonth',
-                  groupValue: typeMonth,
-                  onChanged: (value) {
-                    setState(() {
-                      typeMonth = value as String?;
-                    });
-                  },
-                  title: ShowTitle(
-                    title: '1 Month (2800)',
-                    textStyle: Constant().hBookingStyle(),
-                  ),
-                ),
-              ),*/
   Container selectEndYear() {
     return Container(
-      padding: EdgeInsets.only(top: 540, left: 160, right: 80),
+      padding: EdgeInsets.only(top: 540, left: 160, right: 70),
       child: DropdownButtonFormField(
         value: _toEndVal,
         items: _yearEnd
@@ -305,6 +264,8 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
+           labelText: "Select Year",
+          prefixIcon: Icon(Icons.event_available_rounded,color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
@@ -316,9 +277,10 @@ class _BookingState extends State<Booking> {
 
   Container selectEndM() {
     return Container(
-      padding: EdgeInsets.only(top: 470, left: 160, right: 80),
+      padding: EdgeInsets.only(top: 470, left: 160, right: 70),
       child: DropdownButtonFormField(
         value: _selectToVal,
+        
         items: _monthTo
             .map(
               (e) => DropdownMenuItem(
@@ -338,7 +300,10 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
+          labelText: "Select Month",
+          prefixIcon: Icon(Icons.calendar_month_rounded,color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
+              
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
             border:
@@ -369,7 +334,7 @@ class _BookingState extends State<Booking> {
 
   Container toYear() {
     return Container(
-      padding: EdgeInsets.only(top: 370, left: 160, right: 80),
+      padding: EdgeInsets.only(top: 370, left: 160, right: 70),
       child: DropdownButtonFormField(
         value: _toVal,
         items: _yearTo
@@ -391,6 +356,8 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
+           labelText: "Select Year",
+          prefixIcon: Icon(Icons.event_available_rounded,color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
@@ -402,7 +369,7 @@ class _BookingState extends State<Booking> {
 
   Container selectMonth() {
     return Container(
-      padding: EdgeInsets.only(top: 300, left: 160, right: 80),
+      padding: EdgeInsets.only(top: 300, left: 160, right: 70),
       child: DropdownButtonFormField(
         value: _selectVal,
         items: _monthSelect
@@ -414,6 +381,7 @@ class _BookingState extends State<Booking> {
             )
             .toList(),
         onChanged: (val) {
+         
           setState(() {
             _selectVal = val as String;
             print('Start Month : $_selectVal');
@@ -423,7 +391,11 @@ class _BookingState extends State<Booking> {
           Icons.arrow_drop_down_circle,
           color: Color.fromARGB(255, 27, 94, 32),
         ),
+        
         decoration: InputDecoration(
+          
+           labelText: "Select Month",
+          prefixIcon: Icon(Icons.calendar_month_rounded,color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),

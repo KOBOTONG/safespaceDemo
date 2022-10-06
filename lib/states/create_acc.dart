@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, unused_import, avoid_print, unrelated_type_equality_checks, unused_local_variable, unnecessary_new
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+import 'package:demosafespace/main.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:demosafespace/widget/show_image.dart';
@@ -20,6 +22,7 @@ class CreareAcc extends StatefulWidget {
 final formKey = GlobalKey<FormState>();
 
 class _CreareAccState extends State<CreareAcc> {
+  String vehi ='';
   bool statusRedEye = true;
   TextEditingController username = TextEditingController();
   TextEditingController fname = TextEditingController();
@@ -42,7 +45,7 @@ Future<void> insertdata() async {
           
       try {
        
-        String url = "http://192.168.1.216/safespace/register.php";
+        String url = "${Constant.api}/safespace/register.php";
         var res = await http.post(Uri.parse(url), body: {
           "username" : username.text,
           "fname": fname.text,
@@ -77,13 +80,20 @@ Future<void> insertdata() async {
   Future<void> getImage() async {
     var getimage = await imagePicker.pickImage(
         source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
-    setState(() {
+    
       imgepath = File(getimage!.path);
-      imagename = getimage.path.split('/').last;
-
-      print(imgepath);
+      int i = Random().nextInt(100000);
+      imagename = 'vehicle$i.jpg';
+       String apisaveiden ='${Constant.api}/safespace//saveiden.php';
+     Map<String,dynamic>map =Map();
+     map['file'] = await MultipartFile.fromFile(getimage!.path,filename: imagename);
+     FormData data =FormData.fromMap(map);
+      await Dio().post(apisaveiden, data: data).then((value) => {
+      vehi = '/safespace/Imageiden/$imagename',
+      
+     });
       print(imagename);
-    });
+    
   }
 
   File? imgeVehicel;
@@ -92,13 +102,22 @@ Future<void> insertdata() async {
   Future<void> getVehicle() async {
     var getVehicle = await imagePicker.pickImage(
         source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
-    setState(() {
+    
       imgeVehicel = File(getVehicle!.path);
-      imagenamevehi = getVehicle.path.split('/').last;
-
-      print(imgeVehicel);
+      int i = Random().nextInt(100000);
+      imagenamevehi = 'vehicle$i.jpg';
+     // imagenamevehi = getVehicle.path.split('/').last;
+     String apisave ='${Constant.api}/safespace//saveimage.php';
+     Map<String,dynamic>map =Map();
+     map['file'] = await MultipartFile.fromFile(getVehicle!.path,filename: imagenamevehi);
+     FormData data =FormData.fromMap(map);
+     await Dio().post(apisave, data: data).then((value) => {
+      vehi = '/safespace/Imageuserdata/$imagenamevehi',
+      
+     });
+      
       print(imagenamevehi);
-    });
+    
   }
 
   @override
@@ -235,11 +254,13 @@ Future<void> insertdata() async {
               getImage();
             },
             child: Text(
-              'Upload',
+              'Select',
               style: Constant().h4Style(),
             ),
           ),
         ),
+        SizedBox(height: 40),
+        
       ],
     );
   }
