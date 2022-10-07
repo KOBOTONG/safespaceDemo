@@ -105,6 +105,9 @@ flutter:
     - family: EduSABeginner
       fonts:
         - asset: fonts/EduSABeginner-Regular.ttf
+    - family: AbyssinicaSIL
+      fonts:
+        - asset: fonts/AbyssinicaSIL-Regular.ttf
   #       - asset: fonts/EduSABeginner_Bold.ttf
   #         weight: 700
   #
