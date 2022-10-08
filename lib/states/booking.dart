@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:datepicker_dropdown/datepicker_dropdown.dart';
+import 'package:demosafespace/model/user_model.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:demosafespace/widget/show_title.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +19,9 @@ class Booking extends StatefulWidget {
   @override
   State<Booking> createState() => _BookingState();
 }
+
 final formKey = GlobalKey<FormState>();
+
 class _BookingState extends State<Booking> {
   String? typeMonth;
   String? select;
@@ -135,6 +138,34 @@ class _BookingState extends State<Booking> {
     );
   }
 
+  Future<Null> checkBooking({
+    String? usernamebook,
+  }) async {
+    String apiCheck =
+        "${Constant.api}/safespace//findbooking.php?isAdd=true&usernamebook=$usernamebook";
+    await Dio().get(apiCheck).then((value) async {
+      print('$value');
+      if (value.toString() == 'null') {
+        normalDialog(
+            context, ' No $usernamebook Account. Do you have acccount ?');
+        ;
+      } else {
+        for (var item in json.decode(value.data)) {
+          UserModel model = UserModel.fromMap(item);
+
+          //Success Authe
+
+          if (usernamebook == model.username) {
+            print('$usernamebook');
+            normalDialog(context, 'มีการจองแล้ว');
+          }
+
+          //Navigator.pushNamed(context, Constant.routeHome);*/
+
+        }
+      }
+    });
+  }
 
   Row buttomConfirm(double size) {
     return Row(
@@ -148,25 +179,48 @@ class _BookingState extends State<Booking> {
             onPressed: () async {
               SharedPreferences preferences =
                   await SharedPreferences.getInstance();
+
               String usernamebook = preferences.getString('username')!;
               String fnamebook = preferences.getString('fname')!;
               String lnamebook = preferences.getString('lname')!;
               String licsenbook = preferences.getString('licsenseplate')!;
-              
-              print('username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook, licsenseplate -> $licsenbook');
+              print(
+                  'username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook, licsenseplate -> $licsenbook');
               print('Start Month : $_selectVal ,Start Year : $_toVal');
               print('End Month : $_selectToVal ,End Year : $_toEndVal');
               print('$select');
-              String path = "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
-              await Dio().get(path).then((value){
+
+              String apiCheck =
+                  "${Constant.api}/safespace//findbooking.php?isAdd=true&usernamebook=$usernamebook";
+              await Dio().get(apiCheck).then(
+                (value) async {
+                  print('$value');
+                  if (value.toString() == 'null') {
+                   String path =
+                  "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+              await Dio().get(path).then((value) {
                 if (value.toString() == 'true') {
                   Navigator.pushNamed(context, Constant.routePaymentbook);
                 } else {
                   normalDialog(context, 'Try again');
                 }
               });
-             /* print('lastname for booking ->$lnamebook');
-              print('licsenseplate for booking ->$licsenbook');*/
+                    
+                  } else {
+                    normalDialog(context,
+                        ' ได้ทำการจองแล้ว');
+                  }
+                },
+              );
+              /*String path =
+                  "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+              await Dio().get(path).then((value) {
+                if (value.toString() == 'true') {
+                  Navigator.pushNamed(context, Constant.routePaymentbook);
+                } else {
+                  normalDialog(context, 'Try again');
+                }
+              });*/
             },
             child: Text(
               'Confirm',
@@ -270,8 +324,9 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
-           labelText: "Select Year",
-          prefixIcon: Icon(Icons.event_available_rounded,color: Color.fromARGB(255, 27, 94, 32)),
+            labelText: "Select Year",
+            prefixIcon: Icon(Icons.event_available_rounded,
+                color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
@@ -286,7 +341,6 @@ class _BookingState extends State<Booking> {
       padding: EdgeInsets.only(top: 470, left: 160, right: 70),
       child: DropdownButtonFormField(
         value: _selectToVal,
-        
         items: _monthTo
             .map(
               (e) => DropdownMenuItem(
@@ -306,10 +360,10 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
-          labelText: "Select Month",
-          prefixIcon: Icon(Icons.calendar_month_rounded,color: Color.fromARGB(255, 27, 94, 32)),
+            labelText: "Select Month",
+            prefixIcon: Icon(Icons.calendar_month_rounded,
+                color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
-              
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
             border:
@@ -362,8 +416,9 @@ class _BookingState extends State<Booking> {
           color: Color.fromARGB(255, 27, 94, 32),
         ),
         decoration: InputDecoration(
-           labelText: "Select Year",
-          prefixIcon: Icon(Icons.event_available_rounded,color: Color.fromARGB(255, 27, 94, 32)),
+            labelText: "Select Year",
+            prefixIcon: Icon(Icons.event_available_rounded,
+                color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),
@@ -387,7 +442,6 @@ class _BookingState extends State<Booking> {
             )
             .toList(),
         onChanged: (val) {
-         
           setState(() {
             _selectVal = val as String;
             print('Start Month : $_selectVal');
@@ -397,11 +451,10 @@ class _BookingState extends State<Booking> {
           Icons.arrow_drop_down_circle,
           color: Color.fromARGB(255, 27, 94, 32),
         ),
-        
         decoration: InputDecoration(
-          
-           labelText: "Select Month",
-          prefixIcon: Icon(Icons.calendar_month_rounded,color: Color.fromARGB(255, 27, 94, 32)),
+            labelText: "Select Month",
+            prefixIcon: Icon(Icons.calendar_month_rounded,
+                color: Color.fromARGB(255, 27, 94, 32)),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 27, 94, 32)),
             ),

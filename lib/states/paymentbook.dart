@@ -16,6 +16,8 @@ class Pay extends StatefulWidget {
   State<Pay> createState() => _PayState();
 }
 
+final formKey = GlobalKey<FormState>();
+
 class _PayState extends State<Pay> {
   @override
   Widget build(BuildContext context) {
@@ -24,67 +26,77 @@ class _PayState extends State<Pay> {
       backgroundColor: Constant.yello,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              header(),
-              imgpay(),
-              imgline(),
-              titlepayment(),
-              total(),
-              typePayment(),
-              Qr(size),
-              warning(),
-              tiltleslip(),
-              Container(
-                padding: EdgeInsets.only(top: 630, left: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 40),
-                    imageSlip != null
-                        ? Image.file(imageSlip!)
-                        : Text(
-                            'กรุณาเพิ่มรูปภาพ',
-                            style: Constant().hthaititleStyle(),
+          child: Form(
+            key: formKey,
+            child: Stack(
+              children: [
+                header(),
+                imgpay(),
+                imgline(),
+                titlepayment(),
+                total(),
+                typePayment(),
+                Qr(size),
+                warning(),
+                tiltleslip(),
+                Container(
+                  padding: EdgeInsets.only(top: 630, left: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 40),
+                      imageSlip != null
+                          ? Image.file(imageSlip!)
+                          : Text(
+                              'กรุณาเพิ่มรูปภาพ',
+                              style: Constant().hthaititleStyle(),
+                            ),
+                      SizedBox(height: 40),
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: 30,
+                        ),
+                        child: ElevatedButton(
+                          style: Constant().ourButton(),
+                          onPressed: () {
+                           bool img = formKey.currentState!.validate();
+                           if (img) {
+                             getSlip();
+                           }
+                          },
+                          child: Text(
+                            'Upload',
+                            style: Constant().h4Style(),
                           ),
-                    SizedBox(height: 40),
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: 30,
-                      ),
-                      child: ElevatedButton(
-                        style: Constant().ourButton(),
-                        onPressed: () {
-                          getSlip();
-                        },
-                        child: Text(
-                          'Upload',
-                          style: Constant().h4Style(),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 690),
+                      width: size * 0.6,
+                      child: ElevatedButton(
+                          style: Constant().ourButton(),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              setState(() {
+                                addSlip();
+                              });
+                            }
+                          },
+                          child: Text(
+                            'Confirm',
+                            style: Constant().h4Style(),
+                          )),
                     ),
                   ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 690),
-                    width: size * 0.6,
-                    child: ElevatedButton(
-                        style: Constant().ourButton(),
-                        onPressed: () {
-                          addSlip();
-                        },
-                        child: Text(
-                          'Confirm',
-                          style: Constant().h4Style(),
-                        )),
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -97,7 +109,7 @@ class _PayState extends State<Pay> {
     String url =
         '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip';
     await Dio().get(url).then((value) {
-      if (value.toString() == 'true') {
+      if (value.toString() == 'true' || formKey.currentState!.validate()) {
         Navigator.pushNamed(context, Constant.routeHome);
       } else {
         normalDialog(context, 'Try again');
