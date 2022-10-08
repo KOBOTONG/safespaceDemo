@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:demosafespace/model/booking_model.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +21,13 @@ class Pay extends StatefulWidget {
 final formKey = GlobalKey<FormState>();
 
 class _PayState extends State<Pay> {
+  File? file;
+   BookingModel? bookingModel;
+  @override
+  void initState() {
+    super.initState();
+    loadApiBooking();
+  }
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width;
@@ -34,7 +43,18 @@ class _PayState extends State<Pay> {
                 imgpay(),
                 imgline(),
                 titlepayment(),
-                total(),
+                 Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 200, left: 120),
+          child: Text(
+            "Total :",
+            style: Constant().hBookingStyle(),
+          ),
+        ),
+      ],
+    ),
                 typePayment(),
                 Qr(size),
                 warning(),
@@ -45,12 +65,12 @@ class _PayState extends State<Pay> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 40),
-                      imageSlip != null
-                          ? Image.file(imageSlip!)
-                          : Text(
-                              'กรุณาเพิ่มรูปภาพ',
-                              style: Constant().hthaititleStyle(),
-                            ),
+                      Container(
+                          width: 200,
+                          height: 200,
+                          child: file == null
+                              ? ShowImage(path: 'images/layout.png')
+                              : Image.file(file!)),
                       SizedBox(height: 40),
                       Container(
                         padding: EdgeInsets.only(
@@ -59,10 +79,7 @@ class _PayState extends State<Pay> {
                         child: ElevatedButton(
                           style: Constant().ourButton(),
                           onPressed: () {
-                           bool img = formKey.currentState!.validate();
-                           if (img) {
-                             getSlip();
-                           }
+                            getImage(ImageSource.gallery);
                           },
                           child: Text(
                             'Upload',
@@ -77,15 +94,15 @@ class _PayState extends State<Pay> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(top: 690),
+                      padding: const EdgeInsets.only(top: 850),
                       width: size * 0.6,
                       child: ElevatedButton(
                           style: Constant().ourButton(),
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              setState(() {
-                                addSlip();
-                              });
+                            if (file == null) {
+                              normalDialog(context, 'กรุณาเพิ่มรูปภาพ');
+                            } else {
+                              getSlipSuccess();
                             }
                           },
                           child: Text(
@@ -103,43 +120,63 @@ class _PayState extends State<Pay> {
     );
   }
 
-  Future<Null> addSlip() async {
+ 
+
+  Future<void> getImage(ImageSource source) async {
+    try {
+      var result = await ImagePicker()
+          .pickImage(source: source, maxWidth: 800, maxHeight: 800);
+      setState(() {
+        file = File(result!.path);
+      });
+    } catch (e) {}
+  }
+
+  String? slip;
+  Future<void> getSlipSuccess() async {
+    int i = Random().nextInt(100000);
+    String nameSlip = 'slip$i.jpg';
+    String apisave = '${Constant.api}/safespace//saveslip.php';
+    try {
+      Map<String, dynamic> map = Map();
+      map['file'] =
+          await MultipartFile.fromFile(file!.path, filename: nameSlip);
+      FormData data = FormData.fromMap(map);
+      await Dio().post(apisave, data: data).then((value) async {
+        slip = '/safespace/SlipPayment/$nameSlip';
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        String usernamebook = preferences.getString('username')!;
+        String url =
+            '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip';
+        await Dio().get(url).then((value) {
+          if (value.toString() == 'true' || formKey.currentState!.validate()) {
+            Navigator.pushNamed(context, Constant.routeHome);
+          } else {
+            normalDialog(context, 'Try again');
+          }
+        });
+      });
+    } catch (e) {}
+  }
+
+  Future<Null> loadApiBooking() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String usernamebook = preferences.getString('username')!;
-    String url =
-        '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip';
-    await Dio().get(url).then((value) {
-      if (value.toString() == 'true' || formKey.currentState!.validate()) {
-        Navigator.pushNamed(context, Constant.routeHome);
+    String apifindbooking =
+        '${Constant.api}/safespace/findbooking.php?isAdd=true&usernamebook=$usernamebook';
+    await Dio().get(apifindbooking).then((value) {
+      if (value.toString() == 'null') {
+        
       } else {
-        normalDialog(context, 'Try again');
+        for (var item in json.decode(value.data)) {
+          setState(() {
+          bookingModel = BookingModel.fromMap(item);
+          print('Firstname ===>${bookingModel!.fnamebook}');
+        });
+         
+        }
       }
     });
-  }
-
-  File? imageSlip;
-  String? imagenameSlip;
-  String slip = '';
-  ImagePicker imagePicker = new ImagePicker();
-  Future<void> getSlip() async {
-    var getSlip = await imagePicker.pickImage(
-        source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
-    int i = Random().nextInt(100000);
-    imagenameSlip = 'slip$i.jpg';
-    String apisave = '${Constant.api}/safespace//saveslip.php';
-    Map<String, dynamic> map = Map();
-    map['file'] =
-        await MultipartFile.fromFile(getSlip!.path, filename: imagenameSlip);
-    FormData data = FormData.fromMap(map);
-    await Dio().post(apisave, data: data).then((value) {
-      slip = '/safespace/SlipPayment/$imagenameSlip';
-    });
-
-    print(imagenameSlip);
-  }
-
-  Future<void> getSlipSuccess() async {
-    print('get slip Successful!');
   }
 
   Row tiltleslip() {
@@ -200,21 +237,7 @@ class _PayState extends State<Pay> {
     );
   }
 
-  Row total() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 200, left: 120),
-          child: Text(
-            "Total ",
-            style: Constant().hBookingStyle(),
-          ),
-        ),
-      ],
-    );
-  }
-
+ 
   Row titlepayment() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

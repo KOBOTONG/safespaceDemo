@@ -196,9 +196,11 @@ Future<void> insertdata() async {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 40),
-        imgeVehicel != null
-            ? Image.file(imgeVehicel!)
-            : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        Container(
+          child: imgeVehicel != null
+              ? Image.file(imgeVehicel!)
+              : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        ),
         SizedBox(height: 40),
         Container(
           padding: EdgeInsets.only(left: 30),
@@ -242,9 +244,11 @@ Future<void> insertdata() async {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 40),
-        imgepath != null
-            ? Image.file(imgepath!)
-            : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        Container(
+          child: imgepath != null
+              ? Image.file(imgepath!)
+              : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
+        ),
         SizedBox(height: 40),
         Container(
           padding: EdgeInsets.only(left: 30),

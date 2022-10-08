@@ -2,10 +2,12 @@
 
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demosafespace/model/user_model.dart';
 import 'package:demosafespace/utility/constant.dart';
 import 'package:demosafespace/widget/showSignout.dart';
 import 'package:demosafespace/widget/show_image.dart';
+import 'package:demosafespace/widget/show_process.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,7 +60,7 @@ class _ProfileState extends State<Profile> {
               style: Constant().h0Style(),
             ),
           ),
-          Container(
+          /* Container(
             padding: EdgeInsets.only(
               top: 30,
             ),
@@ -67,7 +69,7 @@ class _ProfileState extends State<Profile> {
               style: Constant().h0Style(),
             ),
           ),
-          Row(
+         Row(
             children: [
               Container(
                 padding: EdgeInsets.only(
@@ -78,7 +80,7 @@ class _ProfileState extends State<Profile> {
                   style: Constant().h0Style(),
                 ),
               ),
-               Container(
+              Container(
                 padding: EdgeInsets.only(
                   top: 30,
                 ),
@@ -106,17 +108,9 @@ class _ProfileState extends State<Profile> {
               'Phone : ${userModel!.phone} ',
               style: Constant().h0Style(),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-              top: 30,
-            ),
-            child: Text(
-              'Idencification : ',
-              style: Constant().h0Style(),
-            ),
-          ),
+          ),*/
           
+         
           SignOut(),
           Row(
             children: [
