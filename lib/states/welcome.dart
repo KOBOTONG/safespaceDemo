@@ -63,7 +63,7 @@ class _WelcomeState extends State<Welcome> {
               top: 400,
               right: 30,
               left: 40,
-              child: Text("แอพลิเคชั่นบริการจองที่จอดรถล่วงหน้าใกล้สนามบิน สำหรับการเดินทางระยะสั้นโดยบริษัท SafeSpace CO., LTD.",
+              child: Text("ลานจอดรถ Interchange 21  บริการจองที่จอดรถล่วงหน้ารายเดือน โดยบริษัท Nippon Parking Development Thailand Co.,Ltd.",
                 //"An application for booking parking near the airport for short trips by SafeSpace CO.,LTD.",
                 style: Constant().h6Style(),
               ),
@@ -78,7 +78,7 @@ class _WelcomeState extends State<Welcome> {
 
   Container buildSingIn(BuildContext context) {
     return Container(margin: EdgeInsets.only(
-      top: 530,
+      top: 550,
       left: 210,
     ),
     width: screenWidth * 0.4,
@@ -96,7 +96,7 @@ class _WelcomeState extends State<Welcome> {
   Container buildRegister() {
     return Container(
       margin: EdgeInsets.only(
-        top: 530,
+        top: 550,
         left: 30,
       ),
       width: screenWidth * 0.4,

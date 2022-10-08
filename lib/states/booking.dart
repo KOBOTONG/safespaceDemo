@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:datepicker_dropdown/datepicker_dropdown.dart';
 import 'package:demosafespace/model/user_model.dart';
+import 'package:demosafespace/utility/booking_dialog.dart';
 import 'package:demosafespace/utility/normal_dialog.dart';
 import 'package:demosafespace/widget/show_title.dart';
 import 'package:dio/dio.dart';
@@ -138,34 +139,7 @@ class _BookingState extends State<Booking> {
     );
   }
 
-  Future<Null> checkBooking({
-    String? usernamebook,
-  }) async {
-    String apiCheck =
-        "${Constant.api}/safespace//findbooking.php?isAdd=true&usernamebook=$usernamebook";
-    await Dio().get(apiCheck).then((value) async {
-      print('$value');
-      if (value.toString() == 'null') {
-        normalDialog(
-            context, ' No $usernamebook Account. Do you have acccount ?');
-        ;
-      } else {
-        for (var item in json.decode(value.data)) {
-          UserModel model = UserModel.fromMap(item);
 
-          //Success Authe
-
-          if (usernamebook == model.username) {
-            print('$usernamebook');
-            normalDialog(context, 'มีการจองแล้ว');
-          }
-
-          //Navigator.pushNamed(context, Constant.routeHome);*/
-
-        }
-      }
-    });
-  }
 
   Row buttomConfirm(double size) {
     return Row(
@@ -196,31 +170,18 @@ class _BookingState extends State<Booking> {
                 (value) async {
                   print('$value');
                   if (value.toString() == 'null') {
-                   String path =
-                  "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
-              await Dio().get(path).then((value) {
-                if (value.toString() == 'true') {
-                  Navigator.pushNamed(context, Constant.routePaymentbook);
-                } else {
-                  normalDialog(context, 'Try again');
-                }
-              });
-                    
+                    String path =
+                        "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+                    await Dio().get(path).then((value) {
+                      if (value.toString() == 'true') {
+                        Navigator.pushNamed(context, Constant.routePaymentbook);
+                      }
+                    });
                   } else {
-                    normalDialog(context,
-                        ' ได้ทำการจองแล้ว');
+                    bookingDialog(context, ' บัญชีนี้มีการจองแล้ว! ');
                   }
                 },
               );
-              /*String path =
-                  "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
-              await Dio().get(path).then((value) {
-                if (value.toString() == 'true') {
-                  Navigator.pushNamed(context, Constant.routePaymentbook);
-                } else {
-                  normalDialog(context, 'Try again');
-                }
-              });*/
             },
             child: Text(
               'Confirm',

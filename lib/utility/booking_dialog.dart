@@ -3,7 +3,7 @@
 import 'package:demosafespace/utility/constant.dart';
 import 'package:flutter/material.dart';
 
-Future<void> normalDialog(BuildContext context, String message) async {
+Future<void> bookingDialog(BuildContext context, String message) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
@@ -15,21 +15,16 @@ Future<void> normalDialog(BuildContext context, String message) async {
             Container(
               padding: EdgeInsets.only(right: 20),
               child: FloatingActionButton(
-                  backgroundColor: Color.fromARGB(255, 27, 94, 32),
-                  onPressed: () => Navigator.pop(context),
+                
+                backgroundColor: Color.fromARGB(255, 27, 94, 32),
+                onPressed:  ()=> Navigator.pushNamed(context, Constant.routeHome),
                   // ignore: prefer_const_constructors
                   child: Text(
                     'OK',
                    
                   )),
             )
-            /* FlatButton(
-                onPressed: () => Navigator.pop(context),
-                // ignore: prefer_const_constructors
-                child: Text(
-                  'OK',
-                  style: TextStyle(color: Colors.red),
-                )),*/
+           
           ],
         )
       ],
