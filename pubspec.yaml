@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.0.15
   datepicker_dropdown: ^0.0.1
   cached_network_image: ^3.0.0
+  flutter_speed_dial: ^4.3.0
  
 
  

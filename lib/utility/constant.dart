@@ -6,7 +6,7 @@ class Constant {
   // Genernal
   static String appName = 'SafeSpace';
   static String SignName = 'welcome Back!';
-   static String api = 'https://f831-158-108-230-104.ap.ngrok.io';
+   static String api = 'https://eeb8-158-108-230-244.ap.ngrok.io';
 
   //Route
   static String routeWelcome = '/welcome';
