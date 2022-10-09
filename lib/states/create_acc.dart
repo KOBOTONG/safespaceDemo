@@ -22,102 +22,97 @@ class CreareAcc extends StatefulWidget {
 final formKey = GlobalKey<FormState>();
 
 class _CreareAccState extends State<CreareAcc> {
-  String vehi ='';
+  File? file;
+  File? fileVehi;
+  String vehicle = '';
+  String iden = '';
   bool statusRedEye = true;
-  TextEditingController username = TextEditingController();
-  TextEditingController fname = TextEditingController();
-  TextEditingController lname = TextEditingController();
-  TextEditingController licsenseplate = TextEditingController();
-  TextEditingController mailuser = TextEditingController();
-  TextEditingController passuser = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  TextEditingController usernamecontroller = TextEditingController();
+  TextEditingController fnamecontroller = TextEditingController();
+  TextEditingController lnamecontroller = TextEditingController();
+  TextEditingController licsenseplatecontroller = TextEditingController();
+  TextEditingController mailusercontroller = TextEditingController();
+  TextEditingController passusercontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
 
-
-Future<void> insertdata() async {
-  
-    if (username.text != " " ||
-        fname.text != " " ||
-        lname.text != " " ||
-        licsenseplate.text != " " ||
-        mailuser.text != " " ||
-        passuser.text != " " ||
-        phone.text != " ") {
-          
-      try {
-       
-        String url = "${Constant.api}/safespace/register.php";
-        var res = await http.post(Uri.parse(url), body: {
-          "username" : username.text,
-          "fname": fname.text,
-          "lname": lname.text,
-          "licsenseplate": licsenseplate.text,
-          "mailuser": mailuser.text,
-          "passuser": passuser.text,
-          "phone": phone.text,
-          "nameiden": imagename,
-          "namevehi": imagenamevehi
-        });
-       
-        var response = jsonDecode(res.body);
-        if (response["success"] == "true") {
-          Navigator.pop(context);
-          
-        } else if( response["success"] == "already"){
-          normalDialog(context,'Username already Regisered' );
+  Future<Null> insertdatauser() async {
+    String username = usernamecontroller.text;
+    String fname = fnamecontroller.text;
+    String lname = lnamecontroller.text;
+    String licsenseplate = licsenseplatecontroller.text;
+    String mailuser = mailusercontroller.text;
+    String passuser = passusercontroller.text;
+    String phone = phonecontroller.text;
+    print(
+        'Data --> username : $username,fname : $fname,lname:$lname,licsenseplate :$licsenseplate,mailuser : $mailuser,password :$passuser,phone: $phone');
+    String apiCheck =
+        "${Constant.api}/safespace//checksignin.php?isAdd=true&username=$username";
+    await Dio().get(apiCheck).then((value) async {
+      print('$value');
+      if (value.toString() == 'null') {
+        if (file == null) {
+          insertImguser(
+              username: username,
+              fname: fname,
+              lname: lname,
+              licsenseplate: licsenseplate,
+              mailuser: mailuser,
+              passuser: passuser,
+              phone: phone);
+        } else {
+          String apisaveiden = '${Constant.api}/safespace//saveiden.php';
+          int i = Random().nextInt(100000);
+          String nameiden = 'iden$i.jpg';
+          Map<String, dynamic> map = Map();
+          map['file'] =
+              await MultipartFile.fromFile(file!.path, filename: nameiden);
+          FormData data = FormData.fromMap(map);
+          await Dio().post(apisaveiden, data: data).then((value) {
+            iden = '/safespace/Imageiden/$nameiden';
+          });
+          String namevehi = 'vehicle$i.jpg';
+          // imagenamevehi = getVehicle.path.split('/').last;
+          String apisave = '${Constant.api}/safespace//saveimage.php';
+          Map<String, dynamic> mapvehi = Map();
+          map['file'] =
+              await MultipartFile.fromFile(fileVehi!.path, filename: namevehi);
+          FormData datavehi = FormData.fromMap(mapvehi);
+          await Dio().post(apisave, data: datavehi).then((value) {
+            vehicle = '/safespace/Imageuserdata/$namevehi';
+          });
+          insertImguser(
+              username: username,
+              fname: fname,
+              lname: lname,
+              licsenseplate: licsenseplate,
+              mailuser: mailuser,
+              passuser: passuser,
+              phone: phone);
         }
-      } catch (e) {
-        print(e);
+      } else {
+        normalDialog(context, ' Username Registed , Please change username!');
       }
-    } else {
-      print("Please Fill All fileds");
-    }
+    });
   }
 
-  File? imgepath;
-  String? imagename;
-  String? imgedata;
-  ImagePicker imagePicker = new ImagePicker();
-  Future<void> getImage() async {
-    var getimage = await imagePicker.pickImage(
-        source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
-    
-      imgepath = File(getimage!.path);
-      int i = Random().nextInt(100000);
-      imagename = 'vehicle$i.jpg';
-       String apisaveiden ='${Constant.api}/safespace//saveiden.php';
-     Map<String,dynamic>map =Map();
-     map['file'] = await MultipartFile.fromFile(getimage!.path,filename: imagename);
-     FormData data =FormData.fromMap(map);
-      await Dio().post(apisaveiden, data: data).then((value) => {
-      vehi = '/safespace/Imageiden/$imagename',
-      
-     });
-      print(imagename);
-    
-  }
-
-  File? imgeVehicel;
-  String? imagenamevehi;
-  String? imgedatavehi;
-  Future<void> getVehicle() async {
-    var getVehicle = await imagePicker.pickImage(
-        source: ImageSource.gallery, maxHeight: 800, maxWidth: 800);
-    
-      imgeVehicel = File(getVehicle!.path);
-      int i = Random().nextInt(100000);
-      imagenamevehi = 'vehicle$i.jpg';
-     // imagenamevehi = getVehicle.path.split('/').last;
-     String apisave ='${Constant.api}/safespace//saveimage.php';
-     Map<String,dynamic>map =Map();
-     map['file'] = await MultipartFile.fromFile(getVehicle!.path,filename: imagenamevehi);
-     FormData data =FormData.fromMap(map);
-     await Dio().post(apisave, data: data).then((value) => {
-      vehi = '/safespace/Imageuserdata/$imagenamevehi',
-      
-     });
-      
-      print(imagenamevehi);
-    
+  Future<Null> insertImguser(
+      {String? username,
+      String? fname,
+      String? lname,
+      String? licsenseplate,
+      String? mailuser,
+      String? passuser,
+      String? phone}) async {
+    print('Iden :$iden ,vehicle :$vehicle ');
+    String apiInsertdata =
+        '${Constant.api}/safespace/regisuser.php?isAdd=true&username=$username&fname=$fname&lname=$lname&licsenseplate=$licsenseplate&mailuser=$mailuser&passuser=$passuser&phone=$phone &iden=$iden&vehicle=$vehicle';
+    await Dio().get(apiInsertdata).then((value) {
+      if (value.toString() == 'true') {
+        Navigator.pop(context);
+      } else {
+        Navigator.pop(context);
+      }
+    });
   }
 
   @override
@@ -141,9 +136,73 @@ Future<void> insertdata() async {
                 makePassword(size),
                 makePhonnuber(size),
                 makeBlueprintitlt(),
-                addIden(size),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 40),
+                      Container(
+                          width: 200,
+                          height: 200,
+                          child: file == null
+                              ? ShowImage(path: 'images/layout.png')
+                              : Image.file(file!)),
+                      SizedBox(height: 40),
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: 30,
+                        ),
+                        child: ElevatedButton(
+                          style: Constant().ourButton(),
+                          onPressed: () {
+                           
+                              getiden((ImageSource.gallery));
+                           
+                          },
+                          child: Text(
+                            'Upload',
+                            style: Constant().h4Style(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // addIden(size),
                 makeBFvehicle(),
-                addvehicle(),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 40),
+                      Container(
+                          width: 200,
+                          height: 200,
+                          child: fileVehi == null
+                              ? ShowImage(path: 'images/layout.png')
+                              : Image.file(fileVehi!)),
+                      SizedBox(height: 40),
+                      Container(
+                        padding: EdgeInsets.only(
+                          left: 30,
+                        ),
+                        child: ElevatedButton(
+                          style: Constant().ourButton(),
+                          onPressed: () {
+                            
+                              getvehi((ImageSource.gallery));
+                            
+                          },
+                          child: Text(
+                            'Upload',
+                            style: Constant().h4Style(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //addvehicle(),
                 makeWarning(),
                 makeButton(size),
               ],
@@ -154,64 +213,55 @@ Future<void> insertdata() async {
     );
   }
 
-  Row makeIsen(double size) {
-    return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 11, bottom: 10),
-                    width: size * 0.6,
-                    child: TextFormField(
-                      controller: licsenseplate,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your license plate';
-                        } else {
-                          return null;
-                        }
-                      },
-                      decoration: InputDecoration(
-                        labelStyle: Constant().h3Style(),
-                        labelText: 'License Plate',
-                        prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          color: Constant.ligthBlack,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Constant.ligthBlack),
-                            borderRadius: BorderRadius.circular(30)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Constant.ligthBlack),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+  Future<void> getiden(ImageSource source) async {
+    try {
+      var result = await ImagePicker()
+          .pickImage(source: source, maxWidth: 800, maxHeight: 800);
+      setState(() {
+        file = File(result!.path);
+      });
+    } catch (e) {}
   }
 
-  Row addvehicle() {
+  Future<void> getvehi(ImageSource source) async {
+    try {
+      var result = await ImagePicker()
+          .pickImage(source: source, maxWidth: 800, maxHeight: 800);
+      setState(() {
+        fileVehi = File(result!.path);
+      });
+    } catch (e) {}
+  }
+
+  Row makeIsen(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: 40),
         Container(
-          child: imgeVehicel != null
-              ? Image.file(imgeVehicel!)
-              : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
-        ),
-        SizedBox(height: 40),
-        Container(
-          padding: EdgeInsets.only(left: 30),
-          child: ElevatedButton(
-            style: Constant().ourButton(),
-            onPressed: () {
-              getVehicle();
+          padding: EdgeInsets.only(top: 11, bottom: 10),
+          width: size * 0.6,
+          child: TextFormField(
+            controller: licsenseplatecontroller,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your license plate';
+              } else {
+                return null;
+              }
             },
-            child: Text(
-              'Upload',
-              style: Constant().h4Style(),
+            decoration: InputDecoration(
+              labelStyle: Constant().h3Style(),
+              labelText: 'License Plate',
+              prefixIcon: Icon(
+                Icons.account_circle_outlined,
+                color: Constant.ligthBlack,
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Constant.ligthBlack),
+                  borderRadius: BorderRadius.circular(30)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Constant.ligthBlack),
+              ),
             ),
           ),
         ),
@@ -239,37 +289,7 @@ Future<void> insertdata() async {
     );
   }
 
-  Row addIden(double size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(height: 40),
-        Container(
-          child: imgepath != null
-              ? Image.file(imgepath!)
-              : Text('กรุณาเพิ่มรูปภาพ', style: Constant().hthaititleStyle()),
-        ),
-        SizedBox(height: 40),
-        Container(
-          padding: EdgeInsets.only(left: 30),
-          child: ElevatedButton(
-            style: Constant().ourButton(),
-            onPressed: () {
-              
-              getImage();
-            },
-            child: Text(
-              'Select',
-              style: Constant().h4Style(),
-            ),
-          ),
-        ),
-        SizedBox(height: 40),
-        
-      ],
-    );
-  }
-
+ 
   Row makeUsername(double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -278,14 +298,12 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: username,
+            controller: usernamecontroller,
             maxLength: 10,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Enter Username ';
-              } else {
-                
-              }
+              } else {}
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
@@ -329,7 +347,7 @@ Future<void> insertdata() async {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 setState(() {
-                 insertdata();
+                  insertdatauser();
                 });
               }
             },
@@ -352,7 +370,7 @@ Future<void> insertdata() async {
           width: size * 0.6,
           child: TextFormField(
             keyboardType: TextInputType.number,
-            controller: phone,
+            controller: phonecontroller,
             maxLength: 10,
             validator: (value) {
               if (value!.isEmpty) {
@@ -389,7 +407,7 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 15, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: passuser,
+            controller: passusercontroller,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your password';
@@ -441,7 +459,7 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 11, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: mailuser,
+            controller: mailusercontroller,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your E-mail';
@@ -477,7 +495,7 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(top: 10, bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: lname,
+            controller: lnamecontroller,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your lastname';
@@ -513,7 +531,7 @@ Future<void> insertdata() async {
           padding: EdgeInsets.only(bottom: 10),
           width: size * 0.6,
           child: TextFormField(
-            controller: fname,
+            controller: fnamecontroller,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your firstname';
