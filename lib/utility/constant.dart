@@ -19,6 +19,7 @@ class Constant {
   static String routeBooking = '/booking';
   static String routePaymentbook = '/paymentbook';
    static String routeMybooking = '/mybooking';
+   static String routeWaiting = '/waiting';
 
   //Image
   static String asset1 = 'images/FFF1.png';

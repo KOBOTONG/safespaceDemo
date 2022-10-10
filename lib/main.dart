@@ -5,6 +5,7 @@ import 'package:demosafespace/states/paymentbook.dart';
 import 'package:demosafespace/states/booking.dart';
 
 import 'package:demosafespace/states/signin.dart';
+import 'package:demosafespace/states/waiting.dart';
 
 import 'package:flutter/material.dart';
 import 'package:demosafespace/utility/constant.dart';
@@ -25,6 +26,7 @@ final Map<String, WidgetBuilder> map = {
   '/booking': (BuildContext context) => Booking(),
   '/paymentbook':(BuildContext context) => Pay(),
   '/mybooking':(BuildContext context) => Mybooking(),
+  '/waiting':(BuildContext context) => Waiting(),
 };
 
 String? initlalRoute;

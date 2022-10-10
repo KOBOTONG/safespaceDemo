@@ -151,7 +151,7 @@ class _PayState extends State<Pay> {
             '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip&status=$status';
         await Dio().get(url).then((value) {
           if (value.toString() == 'true' || formKey.currentState!.validate()) {
-            Navigator.pushNamed(context, Constant.routeHome);
+            Navigator.pushNamed(context, Constant.routeWaiting);
           } else {
             normalDialog(context, 'Try again');
           }
