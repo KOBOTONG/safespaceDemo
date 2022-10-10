@@ -194,6 +194,13 @@ class _MybookingState extends State<Mybooking> {
                   style: Constant().h0Style(),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 30,right: 40),
+                child: Text(
+                  'Status Booking  : ${bookingModel[index].status} ',
+                  style: Constant().h0Style(),
+                ),
+              ),
             ],
           ),
         ],

@@ -50,7 +50,7 @@ class _CreareAccState extends State<CreareAcc> {
     await Dio().get(apiCheck).then((value) async {
       print('$value');
       if (value.toString() == 'null') {
-        if (file == null) {
+       /* if (file == null) {
           insertImguser(
               username: username,
               fname: fname,
@@ -59,9 +59,9 @@ class _CreareAccState extends State<CreareAcc> {
               mailuser: mailuser,
               passuser: passuser,
               phone: phone);
-        } else {
+        } else {*/int i = Random().nextInt(100000);
           String apisaveiden = '${Constant.api}/safespace//saveiden.php';
-          int i = Random().nextInt(100000);
+          
           String nameiden = 'iden$i.jpg';
           Map<String, dynamic> map = Map();
           map['file'] =
@@ -70,11 +70,10 @@ class _CreareAccState extends State<CreareAcc> {
           await Dio().post(apisaveiden, data: data).then((value) {
             iden = '/safespace/Imageiden/$nameiden';
           });
-          String namevehi = 'vehicle$i.jpg';
-          // imagenamevehi = getVehicle.path.split('/').last;
+          String namevehi = 'vehicle$i.jpg';         
           String apisave = '${Constant.api}/safespace//saveimage.php';
           Map<String, dynamic> mapvehi = Map();
-          map['file'] =
+          mapvehi['fileVehi'] =
               await MultipartFile.fromFile(fileVehi!.path, filename: namevehi);
           FormData datavehi = FormData.fromMap(mapvehi);
           await Dio().post(apisave, data: datavehi).then((value) {
@@ -89,7 +88,7 @@ class _CreareAccState extends State<CreareAcc> {
               passuser: passuser,
               phone: phone);
         }
-      } else {
+       else {
         normalDialog(context, ' Username Registed , Please change username!');
       }
     });

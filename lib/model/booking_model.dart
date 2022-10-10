@@ -11,6 +11,7 @@ class BookingModel {
   final String tomonth;
   final String toyear;
   final String resultmy;
+  final String status;
   BookingModel({
     required this.nobook,
     required this.usernamebook,
@@ -22,6 +23,7 @@ class BookingModel {
     required this.tomonth,
     required this.toyear,
     required this.resultmy,
+    required this.status,
   });
 
   BookingModel copyWith({
@@ -35,6 +37,7 @@ class BookingModel {
     String? tomonth,
     String? toyear,
     String? resultmy,
+    String? status,
   }) {
     return BookingModel(
       nobook: nobook ?? this.nobook,
@@ -47,6 +50,7 @@ class BookingModel {
       tomonth: tomonth ?? this.tomonth,
       toyear: toyear ?? this.toyear,
       resultmy: resultmy ?? this.resultmy,
+      status: status ?? this.status,
     );
   }
 
@@ -62,6 +66,7 @@ class BookingModel {
       'tomonth': tomonth,
       'toyear': toyear,
       'resultmy': resultmy,
+      'status': status,
     };
   }
 
@@ -77,6 +82,7 @@ class BookingModel {
       tomonth: map['tomonth'] ?? '',
       toyear: map['toyear'] ?? '',
       resultmy: map['resultmy'] ?? '',
+      status: map['status'] ?? '',
     );
   }
 
@@ -86,7 +92,7 @@ class BookingModel {
 
   @override
   String toString() {
-    return 'BookingModel(nobook: $nobook, usernamebook: $usernamebook, fnamebook: $fnamebook, lnamebook: $lnamebook, lisenbook: $lisenbook, stmonth: $stmonth, styear: $styear, tomonth: $tomonth, toyear: $toyear, resultmy: $resultmy)';
+    return 'BookingModel(nobook: $nobook, usernamebook: $usernamebook, fnamebook: $fnamebook, lnamebook: $lnamebook, lisenbook: $lisenbook, stmonth: $stmonth, styear: $styear, tomonth: $tomonth, toyear: $toyear, resultmy: $resultmy, status: $status)';
   }
 
   @override
@@ -103,7 +109,8 @@ class BookingModel {
       other.styear == styear &&
       other.tomonth == tomonth &&
       other.toyear == toyear &&
-      other.resultmy == resultmy;
+      other.resultmy == resultmy &&
+      other.status == status;
   }
 
   @override
@@ -117,6 +124,7 @@ class BookingModel {
       styear.hashCode ^
       tomonth.hashCode ^
       toyear.hashCode ^
-      resultmy.hashCode;
+      resultmy.hashCode ^
+      status.hashCode;
   }
 }

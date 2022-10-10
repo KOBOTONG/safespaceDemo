@@ -133,6 +133,7 @@ class _PayState extends State<Pay> {
   }
 
   String? slip;
+  var status='Wait for booking';
   Future<void> getSlipSuccess() async {
     int i = Random().nextInt(100000);
     String nameSlip = 'slip$i.jpg';
@@ -147,7 +148,7 @@ class _PayState extends State<Pay> {
         SharedPreferences preferences = await SharedPreferences.getInstance();
         String usernamebook = preferences.getString('username')!;
         String url =
-            '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip';
+            '${Constant.api}/safespace/addslip.php?isAdd=true&usernamebook=$usernamebook&slip=$slip&status=$status';
         await Dio().get(url).then((value) {
           if (value.toString() == 'true' || formKey.currentState!.validate()) {
             Navigator.pushNamed(context, Constant.routeHome);

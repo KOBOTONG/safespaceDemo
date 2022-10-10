@@ -21,9 +21,10 @@ if (isset($_GET)) {
 			
 		$usernamebook = $_GET['usernamebook'];	
 		$slip = $_GET['slip'];
-				
+		$status = $_GET['status'];
 							
-		$sql = "UPDATE `booking` SET `slip` = '$slip ' WHERE usernamebook = '$usernamebook'";
+		$sql = "UPDATE `booking` SET `slip` = '$slip ',`status` = '$status ' WHERE usernamebook = '$usernamebook'";
+
 
 		$result = mysqli_query($link, $sql);
 
