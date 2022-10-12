@@ -24,6 +24,18 @@ class _AboutusState extends State<Aboutus> {
           iconHome(context),
           iconProfile(context),
           iconAboutus(context),
+           Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 140, left: 50),
+          child: Text(
+            "Contact Us",
+            style: Constant().hBookingStyle(),
+          ),
+        ),
+      ],
+    )
         ],
       )),
     );

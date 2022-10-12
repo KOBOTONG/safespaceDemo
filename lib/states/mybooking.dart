@@ -155,12 +155,12 @@ class _MybookingState extends State<Mybooking> {
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+           crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.only(top: 50,right: 120),
                 child: Text(
-                  'Username       : ${bookingModel[index].usernamebook}',
+                  '     Username       : ${bookingModel[index].usernamebook}',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -169,35 +169,35 @@ class _MybookingState extends State<Mybooking> {
                   top: 30,
                 ),
                 child: Text(
-                  ' Name-Lastname : ${bookingModel[index].fnamebook} ${bookingModel[index].lnamebook}',
+                  '     Name-Lastname : ${bookingModel[index].fnamebook} ${bookingModel[index].lnamebook}',
                   style: Constant().h0Style(),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 30,right: 40),
                 child: Text(
-                  'Start Parking   : ${bookingModel[index].stmonth} ${bookingModel[index].styear}',
+                  '     Start Parking   : ${bookingModel[index].stmonth} ${bookingModel[index].styear}',
                   style: Constant().h0Style(),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 30,right: 40),
                 child: Text(
-                  'End Parking   : ${bookingModel[index].tomonth} ${bookingModel[index].toyear}',
+                  '     End Parking   : ${bookingModel[index].tomonth} ${bookingModel[index].toyear}',
                   style: Constant().h0Style(),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 30,right: 40),
                 child: Text(
-                  'Detail   : ${bookingModel[index].resultmy} ',
+                  '     Detail   : ${bookingModel[index].resultmy} ',
                   style: Constant().h0Style(),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 30,right: 40),
                 child: Text(
-                  'Status Booking  : ${bookingModel[index].status} ',
+                  '     Status Booking  : ${bookingModel[index].status} ',
                   style: Constant().h0Style(),
                 ),
               ),

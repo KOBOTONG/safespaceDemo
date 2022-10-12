@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, prefer_void_to_null
 import 'package:demosafespace/model/user_model.dart';
+import 'package:demosafespace/states/addiden.dart';
 import 'package:demosafespace/states/mybooking.dart';
 import 'package:demosafespace/states/paymentbook.dart';
 import 'package:demosafespace/states/booking.dart';
@@ -27,6 +28,7 @@ final Map<String, WidgetBuilder> map = {
   '/paymentbook':(BuildContext context) => Pay(),
   '/mybooking':(BuildContext context) => Mybooking(),
   '/waiting':(BuildContext context) => Waiting(),
+  '/addiden':(BuildContext context) => Addiden(),
 };
 
 String? initlalRoute;

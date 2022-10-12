@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
-
+import 'package:demosafespace/utility/normal_dialog.dart';
+import 'package:http/http.dart ' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demosafespace/model/user_model.dart';
 import 'package:demosafespace/utility/constant.dart';
@@ -25,6 +26,8 @@ class _ProfileState extends State<Profile> {
   bool load = true;
   bool? haveBooking;
   List<UserModel> bookingModel = [];
+
+  get http => null;
   @override
   void initState() {
     super.initState();
@@ -32,6 +35,9 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> findDataUser() async {
+    if (bookingModel.length != 0) {
+      bookingModel.clear();
+    } else {}
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var usernameProfile = preferences.getString('username')!;
     print('usernameProfile : $usernameProfile');
@@ -107,22 +113,9 @@ class _ProfileState extends State<Profile> {
                     ),
                   ],
                 ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
+                 floatingActionButton: FloatingActionButton(
         backgroundColor: Constant.green,
-        overlayColor: Constant.ligthBlack,
-        overlayOpacity: 0.4,
-        children: [
-          SpeedDialChild(
-            backgroundColor: Constant.green,
-            child: Icon(Icons.edit),
-            label: 'Edit Profile',
-          ),
-          SpeedDialChild(
-            backgroundColor: Constant.green,
-            child: Icon(Icons.login_outlined),
-            label: 'Sign Out',
-            onTap: () async {
+        onPressed: () async {
               SharedPreferences preferences =
                   await SharedPreferences.getInstance();
               preferences.clear().then(
@@ -130,9 +123,8 @@ class _ProfileState extends State<Profile> {
                         context, Constant.routeWelcome, (route) => false),
                   );
             },
-          ),
-        ],
-      ),
+        child: Icon(Icons.login_outlined),
+      ),     
     );
   }
 
@@ -161,7 +153,7 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 padding: EdgeInsets.only(top: 50, right: 120),
@@ -175,7 +167,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  ' Name-Lastname : ${bookingModel[index].fname} ${bookingModel[index].lname}',
+                  'Name-Lastname : ${bookingModel[index].fname} ${bookingModel[index].lname}',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -184,7 +176,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'Licsense plate : ${bookingModel[index].licsenseplate} ',
+                  'Licsense plate   : ${bookingModel[index].licsenseplate} ',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -193,7 +185,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'E-mail : ${bookingModel[index].mailuser} ',
+                  'E-mail          : ${bookingModel[index].mailuser} ',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -202,50 +194,62 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'Phone: ${bookingModel[index].phone} ',
+                  'Phone          :  ${bookingModel[index].phone} ',
                   style: Constant().h0Style(),
                 ),
               ),
-              CachedNetworkImage(
-                imageUrl: '${Constant.api}${bookingModel[index].iden}',
-                placeholder: (context, url) => ShowProgress(),
-              ),
-               
-              
             ],
           ),
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 100, left: 10),
+                padding: const EdgeInsets.only(top: 110, left: 5),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeHome),
                   icon: Icon(
                     Icons.home_rounded,
-                    size: 60,
+                    size: 50,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 100, left: 60),
+                padding: const EdgeInsets.only(top: 110, left: 35),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeProfile),
                   icon: Icon(
                     Icons.account_circle,
-                    size: 60,
+                    size: 50,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 100, left: 60),
+                padding: const EdgeInsets.only(top: 110, left: 35),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeAboutus),
                   icon: Icon(
                     Icons.support_agent,
-                    size: 60,
+                    size: 50,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 110, left: 35),
+                child: IconButton(
+                  onPressed: () async {
+                    print(
+                        'Confirm delete ==>  ${bookingModel[index].username}');
+                    String apiCheckDel =
+                        '${Constant.api}/safespace/del.php?isAdd=true&username=${bookingModel[index].username}';
+                    await Dio().get(apiCheckDel).then((value) => {
+                          Navigator.pushNamed(context, Constant.routeWelcome),
+                        });
+                  },
+                  icon: Icon(
+                    Icons.delete_outline,
+                    size: 50,
                   ),
                 ),
               ),
@@ -255,70 +259,4 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-}
-
-Padding iconeHome(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 10, left: 50),
-    child: IconButton(
-      onPressed: () => Navigator.pushNamed(context, Constant.routeHome),
-      icon: Icon(
-        Icons.home_rounded,
-        size: 60,
-      ),
-    ),
-  );
-}
-
-Padding iconsPro(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 10, left: 70),
-    child: IconButton(
-      onPressed: () => Navigator.pushNamed(context, Constant.routeProfile),
-      icon: Icon(
-        Icons.account_circle,
-        size: 60,
-      ),
-    ),
-  );
-}
-
-Padding iconcontact(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 10, left: 70),
-    child: IconButton(
-      onPressed: () => Navigator.pushNamed(context, Constant.routeAboutus),
-      icon: Icon(
-        Icons.support_agent,
-        size: 60,
-      ),
-    ),
-  );
-}
-
-Row makeline() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Container(
-        padding: EdgeInsets.only(top: 10),
-        child: ShowImage(path: Constant.asset7),
-      ),
-    ],
-  );
-}
-
-Row makeHeadingname() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Container(
-        padding: EdgeInsets.only(top: 50),
-        child: Text(
-          "S  a  f  e  S  p  a  c  e",
-          style: Constant().hhStyle(),
-        ),
-      ),
-    ],
-  );
 }
