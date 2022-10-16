@@ -177,9 +177,9 @@ class _CreareAccState extends State<CreareAcc> {
                       Container(
                           width: 200,
                           height: 200,
-                          child: file == null
+                          child: fileVehi == null
                               ? ShowImage(path: 'images/layout.png')
-                              : Image.file(file!)),
+                              : Image.file(fileVehi!)),
                       SizedBox(height: 40),
                       Container(
                         padding: EdgeInsets.only(
@@ -244,7 +244,7 @@ class _CreareAccState extends State<CreareAcc> {
           String apisave = '${Constant.api}/safespace//saveimage.php';
           Map<String, dynamic> map = Map();
           map['file'] =
-              await MultipartFile.fromFile(file!.path, filename: namevehi);
+              await MultipartFile.fromFile(fileVehi!.path, filename: namevehi);
           FormData datavehi = FormData.fromMap(map);
           await Dio().post(apisave, data: datavehi).then((value) {
             vehicle = '/safespace/Imageuserdata/$namevehi';
