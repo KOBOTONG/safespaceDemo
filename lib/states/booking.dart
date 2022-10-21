@@ -157,9 +157,9 @@ class _BookingState extends State<Booking> {
               String usernamebook = preferences.getString('username')!;
               String fnamebook = preferences.getString('fname')!;
               String lnamebook = preferences.getString('lname')!;
-              String licsenbook = preferences.getString('licsenseplate')!;
+              
               print(
-                  'username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook, licsenseplate -> $licsenbook');
+                  'username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook');
               print('Start Month : $_selectVal ,Start Year : $_toVal');
               print('End Month : $_selectToVal ,End Year : $_toEndVal');
               print('$select');
@@ -171,7 +171,7 @@ class _BookingState extends State<Booking> {
                   print('$value');
                   if (value.toString() == 'null') {
                     String path =
-                        "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&licsenbook=$licsenbook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
+                        "${Constant.api}/safespace/book.php?isAdd=true&usernamebook=$usernamebook&fnamebook=$fnamebook&lnamebook=$lnamebook&stmonth=$_selectVal&styear=$_toVal&tomonth=$_selectToVal&toyear=$_toEndVal&resultmy=$select";
                     await Dio().get(path).then((value) {
                       if (value.toString() == 'true') {
                         Navigator.pushNamed(context, Constant.routePaymentbook);

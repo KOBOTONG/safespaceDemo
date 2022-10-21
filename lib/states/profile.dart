@@ -170,16 +170,7 @@ class _ProfileState extends State<Profile> {
                   'Name-Lastname : ${bookingModel[index].fname} ${bookingModel[index].lname}',
                   style: Constant().h0Style(),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  top: 30,
-                ),
-                child: Text(
-                  'Licsense plate   : ${bookingModel[index].licsenseplate} ',
-                  style: Constant().h0Style(),
-                ),
-              ),
+              ),             
               Container(
                 padding: EdgeInsets.only(
                   top: 30,

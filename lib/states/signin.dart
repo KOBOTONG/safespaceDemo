@@ -176,14 +176,14 @@ class _SigninState extends State<Signin> {
             controller: usernamecontroler,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter your licsense plate';
               } else {
                 return null;
               }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
-              labelText: 'Username',
+              labelText: 'licsense plate',
               prefixIcon: Icon(
                 Icons.account_circle_outlined,
                 color: Constant.ligthBlack,

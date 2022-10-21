@@ -8,12 +8,12 @@ $response->message = null;
 
 // Uploading file
 $destination_dir = "Imageuserdata/";
-$base_filename = basename($_FILES["file"]["name"]);
+$base_filename = basename($_FILES["fileVehi"]["name"]);
 $target_file = $destination_dir . $base_filename;
 
-if(!$_FILES["file"]["error"])
+if(!$_FILES["fileVehi"]["error"])
 {
-    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {        
+    if (move_uploaded_file($_FILES["fileVehi"]["tmp_name"], $target_file)) {        
         $response->status = true;
         $response->message = "File uploaded successfully";
 

@@ -44,7 +44,7 @@ class _CreareAccState extends State<CreareAcc> {
     String passuser = passusercontroller.text;
     String phone = phonecontroller.text;
     print(
-        'Data --> username : $username,fname : $fname,lname:$lname,licsenseplate :$licsenseplate,mailuser : $mailuser,password :$passuser,phone: $phone');
+        'Data --> username : $username,fname : $fname,lname:$lname,mailuser : $mailuser,password :$passuser,phone: $phone');
     String apiCheck =
         "${Constant.api}/safespace//checksignin.php?isAdd=true&username=$username";
     await Dio().get(apiCheck).then((value) async {
@@ -83,7 +83,7 @@ class _CreareAccState extends State<CreareAcc> {
               username: username,
               fname: fname,
               lname: lname,
-              licsenseplate: licsenseplate,
+              
               mailuser: mailuser,
               passuser: passuser,
               phone: phone);
@@ -98,13 +98,12 @@ class _CreareAccState extends State<CreareAcc> {
       {String? username,
       String? fname,
       String? lname,
-      String? licsenseplate,
       String? mailuser,
       String? passuser,
       String? phone}) async {
     print('Iden :$iden ,vehicle :$vehicle ');
     String apiInsertdata =
-        '${Constant.api}/safespace/regisuser.php?isAdd=true&username=$username&fname=$fname&lname=$lname&licsenseplate=$licsenseplate&mailuser=$mailuser&passuser=$passuser&phone=$phone &iden=$iden&vehicle=$vehicle';
+        '${Constant.api}/safespace/regisuser.php?isAdd=true&username=$username&fname=$fname&lname=$lname&mailuser=$mailuser&passuser=$passuser&phone=$phone &iden=$iden&vehicle=$vehicle';
     await Dio().get(apiInsertdata).then((value) {
       if (value.toString() == 'true') {
         Navigator.pop(context);
@@ -130,7 +129,7 @@ class _CreareAccState extends State<CreareAcc> {
                 makeUsername(size),
                 firstname(size),
                 lastname(size),
-                makeIsen(size),
+                //makeIsen(size),
                 email(size),
                 makePassword(size),
                 makePhonnuber(size),
@@ -243,7 +242,7 @@ class _CreareAccState extends State<CreareAcc> {
         String namevehi = 'vehicle$t.jpg';         
           String apisave = '${Constant.api}/safespace//saveimage.php';
           Map<String, dynamic> map = Map();
-          map['file'] =
+          map['fileVehi'] =
               await MultipartFile.fromFile(fileVehi!.path, filename: namevehi);
           FormData datavehi = FormData.fromMap(map);
           await Dio().post(apisave, data: datavehi).then((value) {
@@ -319,15 +318,15 @@ class _CreareAccState extends State<CreareAcc> {
           width: size * 0.6,
           child: TextFormField(
             controller: usernamecontroller,
-            maxLength: 10,
+            maxLength: 7,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Enter Username ';
+                return 'Enter licsenseplate ';
               } else {}
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
-              labelText: 'Username ',
+              labelText: 'licsenseplate ',
               prefixIcon: Icon(
                 Icons.badge_outlined,
                 color: Constant.ligthBlack,
