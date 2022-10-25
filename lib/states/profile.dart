@@ -194,7 +194,7 @@ class _ProfileState extends State<Profile> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 110, left: 5),
+                padding: const EdgeInsets.only(top: 160, left: 5),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeHome),
@@ -205,7 +205,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 110, left: 35),
+                padding: const EdgeInsets.only(top: 160, left: 35),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeProfile),
@@ -216,7 +216,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 110, left: 35),
+                padding: const EdgeInsets.only(top: 160, left: 35),
                 child: IconButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, Constant.routeAboutus),
@@ -227,7 +227,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 110, left: 35),
+                padding: const EdgeInsets.only(top: 160, left: 35),
                 child: IconButton(
                   onPressed: () async {
                     print(

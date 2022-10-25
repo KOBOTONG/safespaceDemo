@@ -322,6 +322,8 @@ class _CreareAccState extends State<CreareAcc> {
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Enter licsenseplate ';
+              }  if (value!.length<6) {
+                return 'Enter valid licsenseplate';
               } else {}
             },
             decoration: InputDecoration(
@@ -381,6 +383,9 @@ class _CreareAccState extends State<CreareAcc> {
   }
 
   Row makePhonnuber(double size) {
+    String pattern =
+        r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$';
+    RegExp regex = RegExp(pattern);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -390,11 +395,14 @@ class _CreareAccState extends State<CreareAcc> {
           child: TextFormField(
             keyboardType: TextInputType.number,
             controller: phonecontroller,
-            maxLength: 10,
+            
             validator: (value) {
-              if (value!.isEmpty) {
+              if (value!.isEmpty 
+            ) {
                 return 'Please enter your phone number';
-              } else {
+              }else if (!regex.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    }else {
                 return null;
               }
             },
@@ -428,9 +436,11 @@ class _CreareAccState extends State<CreareAcc> {
           child: TextFormField(
             controller: passusercontroller,
             validator: (value) {
-              if (value!.isEmpty) {
+              if (value!.isEmpty ) {
                 return 'Please enter your password';
-              } else {
+              }else if (value!.length<=6) {
+      return 'Please enter less than 6 digits';
+    } else {
                 return null;
               }
             },
@@ -480,7 +490,7 @@ class _CreareAccState extends State<CreareAcc> {
           child: TextFormField(
             controller: mailusercontroller,
             validator: (value) {
-              if (value!.isEmpty) {
+              if (value!.isEmpty||!value.contains("@gmail.com")) {
                 return 'Please enter your E-mail';
               } else {
                 return null;

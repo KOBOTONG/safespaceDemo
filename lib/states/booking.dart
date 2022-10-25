@@ -201,7 +201,7 @@ class _BookingState extends State<Booking> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        Container( 
             padding: EdgeInsets.only(top: 680),
             child: typeM("1 Month 2800 baht")),
         Container(
@@ -242,7 +242,7 @@ class _BookingState extends State<Booking> {
         child: Container(
           height: 60,
           width: 100,
-          decoration: BoxDecoration(
+          decoration: BoxDecoration(  
             border: title == select
                 ? Border.all(color: Constant.dropligthBlack, width: 2)
                 : null,

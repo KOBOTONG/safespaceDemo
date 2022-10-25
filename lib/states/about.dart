@@ -28,14 +28,25 @@ class _AboutusState extends State<Aboutus> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.only(top: 140, left: 50),
+          padding: EdgeInsets.only(top: 140, left: 0),
           child: Text(
             "Contact Us",
             style: Constant().hBookingStyle(),
           ),
         ),
+        
       ],
-    )
+    ), Padding(
+                padding: const EdgeInsets.only(top: 160, left: 40),
+                child: ShowImage(path: Constant.assetCalen),
+              ),
+              Container(
+          padding: EdgeInsets.only(top: 230, left: 200),
+          child: Text(
+            "Safespace Page",
+            style: Constant().hBookingStyle(),
+          ),
+        ),
         ],
       )),
     );
@@ -55,7 +66,7 @@ class _AboutusState extends State<Aboutus> {
 
   Padding iconAboutus(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 560, left: 290),
+      padding: const EdgeInsets.only(top: 570, left: 290),
       child: IconButton(
         onPressed: () => Navigator.pushNamed(context, Constant.routeAboutus),
         icon: Icon(
