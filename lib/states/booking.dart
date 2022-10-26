@@ -43,7 +43,7 @@ class _BookingState extends State<Booking> {
   }
 
   final _yearEnd = [
-    "Select Year",
+    "Year",
     "2022",
     "2023",
     "2024",
@@ -56,10 +56,10 @@ class _BookingState extends State<Booking> {
     "2031",
     "2032"
   ];
-  String? _toEndVal = "Select Year";
+  String? _toEndVal = "Year";
 
   final _monthTo = [
-    "Select Month",
+    "Month",
     "January",
    "February",
     "March", 
@@ -73,10 +73,10 @@ class _BookingState extends State<Booking> {
     "November",
     "December"
   ];
-  String? _selectToVal = "Select Month";
+  String? _selectToVal = "Month";
 
   final _monthSelect = [
-    "Select Month",
+    "Month",
     "January",
     "February",
     "March",
@@ -90,9 +90,9 @@ class _BookingState extends State<Booking> {
     "November",
     "December"
   ];
-  String? _selectVal = "Select Month";
+  String? _selectVal = "Month";
   final _yearTo = [
-    "Select Year",
+    "Year",
     "2022",
     "2023",
     "2024",
@@ -105,7 +105,7 @@ class _BookingState extends State<Booking> {
     "2031",
     "2032"
   ];
-  String? _toVal = "Select Year";
+  String? _toVal = "Year";
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +221,7 @@ class _BookingState extends State<Booking> {
         Container(
           padding: EdgeInsets.only(top: 630, left: 30),
           child: Text(
-            "Select Month",
+            "Number of Months",
             style: Constant().hBookingStyle(),
           ),
         ),
