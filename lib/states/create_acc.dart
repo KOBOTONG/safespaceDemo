@@ -302,7 +302,7 @@ class _CreareAccState extends State<CreareAcc> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: Text(
-        '    ทุกสำเนาต้องมีการเซ็นสำเนาถูกต้องเพื่อใช้สำหรับสมัครสมาชิกจอดรถรายเดือนกับบริษัท NIPPON PARKING DEVELOPMENT (THAILAND) CO.,LTD เท่านั้น',
+        '    * ทุกสำเนาต้องมีการเซ็นสำเนาถูกต้องเพื่อใช้สำหรับสมัครสมาชิกจอดรถรายเดือนกับบริษัท NIPPON PARKING DEVELOPMENT (THAILAND) CO.,LTD เท่านั้น',
         style: Constant().hhthaiStyle(),
       ),
     );
@@ -321,14 +321,14 @@ class _CreareAccState extends State<CreareAcc> {
             maxLength: 7,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Enter licsenseplate ';
+                return 'Enter license plate ';
               }  if (value!.length<6) {
-                return 'Enter valid licsenseplate';
+                return 'Enter valid license plate';
               } else {}
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
-              labelText: 'licsenseplate ',
+              labelText: 'license plate ',
               prefixIcon: Icon(
                 Icons.badge_outlined,
                 color: Constant.ligthBlack,
@@ -594,7 +594,7 @@ class _CreareAccState extends State<CreareAcc> {
       child: Row(
         children: [
           Text(
-            "Create tour accound for join application",
+            "Create your accout for join application",
             style: Constant().hStyle(),
           ),
         ],

@@ -61,7 +61,7 @@ class _BookingState extends State<Booking> {
   final _monthTo = [
     "Month",
     "January",
-   "February",
+   "Febuary",
     "March", 
     "April",
     "May",
@@ -78,7 +78,7 @@ class _BookingState extends State<Booking> {
   final _monthSelect = [
     "Month",
     "January",
-    "February",
+    "Febuary",
     "March",
     "April",
     "May",
@@ -161,6 +161,7 @@ class _BookingState extends State<Booking> {
               String usernamebook = preferences.getString('username')!;
               String fnamebook = preferences.getString('fname')!;
               String lnamebook = preferences.getString('lname')!;
+              
               
               print(
                   'username for booking ->$usernamebook , first name -> $fnamebook, last name -> $lnamebook');

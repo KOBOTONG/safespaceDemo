@@ -54,7 +54,7 @@ class _WelcomeState extends State<Welcome> {
             right: 25,
             left: 25,
             child: Text(
-              "WelCome!",
+              "Welcome!",
               style: Constant().h4Style(),
             ),
           )),

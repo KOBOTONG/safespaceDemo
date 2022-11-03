@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
             makeLine(),
            
             makeCrop(),
-            makeTextdata(),
+            //makeTextdata(),
             makebuttonBooking(),
             makebuttonMybooking(),
             makeHome(context),
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
       children: [
         Container(
           padding: EdgeInsets.only(top: 140),
-          child: ShowImage(path: Constant.asset8),
+          child: ShowImage(path: Constant.assetHome),
         ),
       ],
     );

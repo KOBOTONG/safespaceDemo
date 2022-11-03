@@ -103,6 +103,7 @@ class _SigninState extends State<Signin> {
               preferences.setString('username', model.username);
               preferences.setString('fname', model.fname);
               preferences.setString('lname', model.lname);
+              preferences.setString('phone', model.phone);
               preferences.setString('licsenseplate', model.licsenseplate);
 
             //Navigator.pushNamed(context, Constant.routeHome);*/
@@ -176,14 +177,14 @@ class _SigninState extends State<Signin> {
             controller: usernamecontroler,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your licsense plate';
+                return 'Please enter your license plate';
               } else {
                 return null;
               }
             },
             decoration: InputDecoration(
               labelStyle: Constant().h3Style(),
-              labelText: 'licsense plate',
+              labelText: 'license plate',
               prefixIcon: Icon(
                 Icons.account_circle_outlined,
                 color: Constant.ligthBlack,
