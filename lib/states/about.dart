@@ -99,7 +99,7 @@ class _AboutusState extends State<Aboutus> {
 
   Padding iconAboutus(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 570, left: 290),
+      padding: const EdgeInsets.only(top: 560, left: 290),
       child: IconButton(
         onPressed: () => Navigator.pushNamed(context, Constant.routeAboutus),
         icon: Icon(
