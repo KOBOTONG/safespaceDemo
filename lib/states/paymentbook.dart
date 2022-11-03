@@ -47,9 +47,9 @@ class _PayState extends State<Pay> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(top: 200, left: 120),
+          padding: EdgeInsets.only(top: 200, left: 100),
           child: Text(
-            "Total :",
+            "Total : ${bookingModel!.resultmy}",
             style: Constant().hBookingStyle(),
           ),
         ),

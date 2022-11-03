@@ -38,7 +38,10 @@ class Constant {
   static String assetDocument = 'images/contract.png';
   static String assetPay = 'images/layout.png';
   static String assetHome = 'images/head.png';
-  
+  static String assetEmail = 'images/ema.png';
+  static String assetFac = 'images/fac.png';
+  static String assetPhone = 'images/pho.png';
+  static String assetTwi = 'images/twi.png';
   //color
   static Color yello = Color(0xffffdb48);
   static Color green = Color(0xff367d51);

@@ -24,29 +24,62 @@ class _AboutusState extends State<Aboutus> {
           iconHome(context),
           iconProfile(context),
           iconAboutus(context),
-           Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.only(top: 140, left: 0),
-          child: Text(
-            "Contact Us",
-            style: Constant().hBookingStyle(),
-          ),
-        ),
-        
-      ],
-    ), Padding(
-                padding: const EdgeInsets.only(top: 160, left: 40),
-                child: ShowImage(path: Constant.assetCalen),
-              ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Container(
-          padding: EdgeInsets.only(top: 230, left: 200),
-          child: Text(
-            "Safespace Page",
-            style: Constant().hBookingStyle(),
+                padding: EdgeInsets.only(top: 140, left: 0),
+                child: Text(
+                  "Contact Us",
+                  style: Constant().hBookingStyle(),
+                ),
+              ),
+            ],
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(top: 210, left: 60),
+            child: ShowImage(path: Constant.assetFac),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 230, left: 140),
+            child: Text(
+              "SafeSpaceTH",
+              style: Constant().hBookingStyle(),
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.only(top: 280, left: 60),
+            child: ShowImage(path: Constant.assetEmail),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 295, left: 140),
+            child: Text(
+              "safespaceAdmin@gmail.com",
+              style: Constant().hBookingStyle(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 350, left: 60),
+            child: ShowImage(path: Constant.assetTwi),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 365, left: 140),
+            child: Text(
+               "SafeSpaceTH",
+              style: Constant().hBookingStyle(),
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.only(top: 420, left: 60),
+            child: ShowImage(path: Constant.assetPhone),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 435, left: 140),
+            child: Text(
+               "099-999-9999",
+              style: Constant().hBookingStyle(),
+            ),
+          ),
         ],
       )),
     );
