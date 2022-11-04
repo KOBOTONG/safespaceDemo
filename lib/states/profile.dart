@@ -158,7 +158,7 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.only(top: 50, right: 120),
                 child: Text(
-                  'Username       : ${bookingModel[index].username}',
+                  '    Licensen Plate: ${bookingModel[index].username}',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -167,7 +167,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'Name-Lastname : ${bookingModel[index].fname} ${bookingModel[index].lname}',
+                  '    Name-Lastname : ${bookingModel[index].fname} ${bookingModel[index].lname}',
                   style: Constant().h0Style(),
                 ),
               ),             
@@ -176,7 +176,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'E-mail          : ${bookingModel[index].mailuser} ',
+                  '    E-mail          : ${bookingModel[index].mailuser} ',
                   style: Constant().h0Style(),
                 ),
               ),
@@ -185,7 +185,7 @@ class _ProfileState extends State<Profile> {
                   top: 30,
                 ),
                 child: Text(
-                  'Phone          :  ${bookingModel[index].phone} ',
+                  '    Phone          :  ${bookingModel[index].phone} ',
                   style: Constant().h0Style(),
                 ),
               ),
