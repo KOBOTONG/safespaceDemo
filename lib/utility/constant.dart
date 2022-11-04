@@ -6,7 +6,7 @@ class Constant {
   // Genernal
   static String appName = 'SafeSpace';
   static String SignName = 'welcome Back!';
-   static String api = 'https://57df-158-108-230-177.ap.ngrok.io';
+   static String api = 'https://591d-110-168-84-179.ap.ngrok.io';
 
   //Route
   static String routeWelcome = '/welcome';
@@ -39,9 +39,13 @@ class Constant {
   static String assetPay = 'images/layout.png';
   static String assetHome = 'images/head.png';
   static String assetEmail = 'images/ema.png';
-  static String assetFac = 'images/fac.png';
+  static String assetFac = 'images/facebook.png';
   static String assetPhone = 'images/pho.png';
   static String assetTwi = 'images/twi.png';
+  static String assetFa = 'images/facebook.png';
+    static String assetP = 'images/phone.png';
+  static String assetT = 'images/twitter.png';
+  static String assetE = 'images/email.png';
   //color
   static Color yello = Color(0xffffdb48);
   static Color green = Color(0xff367d51);

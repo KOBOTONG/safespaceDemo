@@ -12,6 +12,7 @@ class Aboutus extends StatefulWidget {
 }
 
 class _AboutusState extends State<Aboutus> {
+  late double screenWidth, screenHeigth;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +37,12 @@ class _AboutusState extends State<Aboutus> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 210, left: 60),
-            child: ShowImage(path: Constant.assetFac),
-          ),
+          
+             Padding(
+              padding: const EdgeInsets.only(top: 210, left: 60,right: 60),
+              child: ShowImage(path: Constant.assetFa),
+            ),
+          
           Container(
             padding: EdgeInsets.only(top: 230, left: 140),
             child: Text(
@@ -49,7 +52,8 @@ class _AboutusState extends State<Aboutus> {
           ),
            Padding(
             padding: const EdgeInsets.only(top: 280, left: 60),
-            child: ShowImage(path: Constant.assetEmail),
+            
+            child: ShowImage(path: Constant.assetE),
           ),
           Container(
             padding: EdgeInsets.only(top: 295, left: 140),
@@ -60,7 +64,7 @@ class _AboutusState extends State<Aboutus> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 350, left: 60),
-            child: ShowImage(path: Constant.assetTwi),
+            child: ShowImage(path: Constant.assetT),
           ),
           Container(
             padding: EdgeInsets.only(top: 365, left: 140),
@@ -71,7 +75,7 @@ class _AboutusState extends State<Aboutus> {
           ),
            Padding(
             padding: const EdgeInsets.only(top: 420, left: 60),
-            child: ShowImage(path: Constant.assetPhone),
+            child: ShowImage(path: Constant.assetP),
           ),
           Container(
             padding: EdgeInsets.only(top: 435, left: 140),
