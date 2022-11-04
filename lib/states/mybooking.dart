@@ -160,7 +160,7 @@ class _MybookingState extends State<Mybooking> {
               Container(
                 padding: EdgeInsets.only(top: 50,right: 120),
                 child: Text(
-                  '     Licensen Plate       : ${bookingModel[index].usernamebook}',
+                  '     Licensen Plate : ${bookingModel[index].usernamebook}',
                   style: Constant().h0Style(),
                 ),
               ),
